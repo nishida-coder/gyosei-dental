@@ -422,17 +422,19 @@ function gyosei_force_https_rewrite($html) {
         $html
     );
 
-    // 1d) Rewrite DR card doctor name into clean 2-line structure (name + grad year).
-    //     Matches:
+    // 1d) Rewrite DR card doctor name into a clean <div> block OUTSIDE of `.title`.
+    //     The parent theme applies `.title { display:-webkit-box; -webkit-line-clamp:2; height:3.4em; overflow:hidden }`
+    //     to everything matching `#post_list .article .title`, which was clipping
+    //     the grad year off. We emit a sibling <div class="gd-dr-meta"> that has no
+    //     inherited clipping rules.
+    //     Source variants:
     //       <strong>青柳 隆<br>(99年卒)</strong>
     //       <strong>福田 隆慧（03卒）</strong>
     //       <strong>豊村 康太<br>(00年卒)</strong>
-    //     Produces two <span> blocks that CSS stacks vertically.
     $html = preg_replace_callback(
         '#<p class="title" style="margin-left: 10px;"><strong>(.*?)</strong></p>#u',
         function ($m) {
             $raw = $m[1];
-            // Normalize: <br> or <br /> or <br/> → pipe, full-width parens → half-width
             $tmp = preg_replace('#<br\s*/?\s*>#i', '|', $raw);
             $name = $tmp;
             $grad = '';
@@ -446,12 +448,12 @@ function gyosei_force_https_rewrite($html) {
             }
             $name_esc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
             $grad_esc = htmlspecialchars($grad, ENT_QUOTES, 'UTF-8');
-            $out  = '<p class="title gd-dr-title" style="margin-left: 10px;">';
+            $out  = '<div class="gd-dr-meta">';
             $out .= '<span class="gd-dr-name">' . $name_esc . '</span>';
             if ($grad !== '') {
                 $out .= '<span class="gd-dr-grad">' . $grad_esc . '</span>';
             }
-            $out .= '</p>';
+            $out .= '</div>';
             return $out;
         },
         $html

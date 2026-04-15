@@ -328,8 +328,18 @@
     function extractDoctorData(doc) {
         var out = { photo: null, doctor: null, grad: null, specialty: null };
 
-        // Single clinic page has post_list2 used BOTH for doctor block (first) and media (later).
-        // Doctor block is identified by having .cat-category inside.
+        // 1) Prefer the cleanly-rewritten .gd-dr-meta block (present on any page
+        //    whose markup has been processed by the gensen-dental child theme).
+        var meta = doc.querySelector(".gd-dr-meta");
+        if (meta) {
+            var nameEl = meta.querySelector(".gd-dr-name");
+            var gradEl = meta.querySelector(".gd-dr-grad");
+            if (nameEl) out.doctor = (nameEl.textContent || "").trim();
+            if (gradEl) out.grad = (gradEl.textContent || "").trim().replace(/^\(|\)$/g, "");
+        }
+
+        // 2) Single clinic page has post_list2 used BOTH for doctor block (first)
+        //    and media (later). Doctor block has .cat-category inside.
         var allPostList2 = doc.querySelectorAll("#post_list2, ol#post_list2");
         var doctorOl = null;
         Array.prototype.forEach.call(allPostList2, function (ol) {
@@ -352,18 +362,30 @@
                             photoImg.getAttribute("data-lazy");
             }
 
-            // Doctor name + grad year from the first <p> that contains a <strong>
-            var nameP = doctorOl.querySelector(".wp-block-column p strong, .wp-block-column p.title strong");
-            if (nameP) {
-                var raw = (nameP.innerHTML || nameP.textContent || "")
-                    .replace(/<br\s*\/?>/gi, "|")
-                    .replace(/<[^>]+>/g, "");
-                var parts = raw.split("|").map(function (s) { return s.trim(); }).filter(Boolean);
-                if (parts.length >= 1) out.doctor = parts[0];
-                if (parts.length >= 2) {
-                    var m = parts[1].match(/\(?(\d{2,4}[^)）]*卒)\)?/);
-                    if (m) out.grad = m[1];
-                    else out.grad = parts[1].replace(/[()（）]/g, "");
+            // If we didn't get a name/grad from .gd-dr-meta above, try the clean
+            // span structure scoped to the doctor block, then fall back to <strong>.
+            if (!out.doctor) {
+                var metaIn = doctorOl.querySelector(".gd-dr-meta");
+                if (metaIn) {
+                    var n2 = metaIn.querySelector(".gd-dr-name");
+                    var g2 = metaIn.querySelector(".gd-dr-grad");
+                    if (n2) out.doctor = (n2.textContent || "").trim();
+                    if (!out.grad && g2) out.grad = (g2.textContent || "").trim().replace(/^\(|\)$/g, "");
+                }
+            }
+            if (!out.doctor) {
+                var nameP = doctorOl.querySelector(".wp-block-column p strong, .wp-block-column p.title strong");
+                if (nameP) {
+                    var raw = (nameP.innerHTML || nameP.textContent || "")
+                        .replace(/<br\s*\/?>/gi, "|")
+                        .replace(/<[^>]+>/g, "");
+                    var parts = raw.split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+                    if (parts.length >= 1) out.doctor = parts[0];
+                    if (parts.length >= 2) {
+                        var m = parts[1].match(/\(?(\d{2,4}[^)）]*卒)\)?/);
+                        if (m) out.grad = m[1];
+                        else out.grad = parts[1].replace(/[()（）]/g, "");
+                    }
                 }
             }
 
