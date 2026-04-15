@@ -413,6 +413,17 @@ function gyosei_force_https_rewrite($html) {
     ];
     $html = str_replace($patterns, $replace, $html);
 
+    // 1c) Strip `js-ellipsis` from DR-card doctor-name titles inside #post_list.
+    //     The parent theme applies `$('.js-ellipsis').textOverflowEllipsis()` in footer.php,
+    //     which truncates text after a <br>, hiding the "(XX年卒)" second line.
+    //     Keeping the clinic-name <h3 class="title js-ellipsis"> untouched is fine — those
+    //     are single-line and the plugin handles them correctly.
+    $html = preg_replace(
+        '#(<p class="title)\s+js-ellipsis(" style="margin-left: 10px;"><strong>)#u',
+        '$1$2',
+        $html
+    );
+
     // 2) On the homepage, restructure the bottom banner strip:
     //    - add a .gm-home-banners class hook to the clearfix container so CSS grids it
     //    - inject a single CTA button after the banner strip
@@ -461,19 +472,16 @@ function gyosei_force_https_rewrite($html) {
 
             $html = preg_replace_callback(
                 $pattern,
-                function ($m) use ($title, $sub) {
+                function ($m) use ($title) {
                     $href = $m[1];
                     $src  = $m[2];
                     $is_external = (strpos($href, 'gyosei-dental.com') === false);
                     $target_attr = $is_external ? ' target="_blank" rel="noopener"' : '';
+                    // Banner image already contains brand name graphic — no extra label needed.
                     return '<div class="gm-home-banner-item">' .
                         '<a href="' . htmlspecialchars($href, ENT_QUOTES) . '"' . $target_attr . '>' .
                         '<img src="' . htmlspecialchars($src, ENT_QUOTES) . '" alt="' . htmlspecialchars($title, ENT_QUOTES) . '">' .
                         '</a>' .
-                        '<div class="gm-banner-label">' .
-                        '<span class="gm-banner-title">' . $title . '</span>' .
-                        '<span class="gm-banner-sub">' . $sub . '</span>' .
-                        '</div>' .
                         '</div>';
                 },
                 $html

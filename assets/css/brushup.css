@@ -2935,3 +2935,90 @@ body.search #post_list .article h2.title.gm-archive-enriched::before {
         padding: 0 18px 18px !important;
     }
 }
+
+/* =========================================================================
+   DENTAL overrides — hero catchphrase + DR-card graduation year + banner
+   (added 2026-04-16 to fix readability + ellipsis truncation + label dup)
+   ========================================================================= */
+
+/* ---------- Hero catchphrase: make it actually visible ---------- */
+#header_slider .item1 .caption,
+#header_slider .caption.pc,
+#header_slider .caption.sp {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#header_slider .item1 .caption .catchphrase,
+#header_slider .caption .catchphrase {
+    color: var(--gm-navy, #0A1F3D) !important;
+    font-family: "Shippori Mincho B1", "Noto Serif JP", serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(26px, 3vw, 44px) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.08em !important;
+    text-shadow: 0 2px 14px rgba(255, 255, 255, 0.85) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#header_slider .item1 .caption .catchphrase span,
+#header_slider .caption .catchphrase span {
+    display: inline-block !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    padding: 22px 34px !important;
+    border-left: 4px solid var(--gm-gold, #B8935A) !important;
+    box-shadow: 0 10px 32px rgba(10, 31, 61, 0.18) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+    opacity: 1 !important;
+    color: var(--gm-navy, #0A1F3D) !important;
+}
+
+/* Parent inline CSS sets headline font-size 0 — keep hidden and collapse it */
+#header_slider .item1 .caption .headline,
+#header_slider .caption .headline {
+    display: none !important;
+}
+
+@media screen and (max-width: 1024px) {
+    #header_slider .item1 .caption .catchphrase,
+    #header_slider .caption .catchphrase {
+        font-size: clamp(18px, 5vw, 24px) !important;
+        line-height: 1.5 !important;
+    }
+    #header_slider .item1 .caption .catchphrase span,
+    #header_slider .caption .catchphrase span {
+        padding: 14px 18px !important;
+        border-left-width: 3px !important;
+    }
+}
+
+/* ---------- DR list card: force 2-line doctor name + grad year ---------- */
+#post_list .wp-block-columns .wp-block-column p.title,
+#post_list .wp-block-columns .wp-block-column p.title.js-ellipsis {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    line-height: 1.45 !important;
+    font-family: "Shippori Mincho B1", "Noto Serif JP", serif !important;
+    color: var(--gm-navy, #0A1F3D) !important;
+}
+
+#post_list .wp-block-columns .wp-block-column p.title strong {
+    display: inline-block !important;
+    white-space: normal !important;
+    font-weight: 600 !important;
+}
+
+#post_list .wp-block-columns .wp-block-column p.title br {
+    display: block !important;
+}
+
+/* Gold accent for graduation year parenthetical (visual only) */
+#post_list .wp-block-columns .wp-block-column p.title strong {
+    letter-spacing: 0.02em !important;
+}
