@@ -416,11 +416,75 @@ function gyosei_force_https_rewrite($html) {
     // 1c) Strip `js-ellipsis` from DR-card doctor-name titles inside #post_list.
     //     The parent theme applies `$('.js-ellipsis').textOverflowEllipsis()` in footer.php,
     //     which truncates text after a <br>, hiding the "(XX年卒)" second line.
-    //     Keeping the clinic-name <h3 class="title js-ellipsis"> untouched is fine — those
-    //     are single-line and the plugin handles them correctly.
     $html = preg_replace(
         '#(<p class="title)\s+js-ellipsis(" style="margin-left: 10px;"><strong>)#u',
         '$1$2',
+        $html
+    );
+
+    // 1d) Rewrite DR card doctor name into clean 2-line structure (name + grad year).
+    //     Matches:
+    //       <strong>青柳 隆<br>(99年卒)</strong>
+    //       <strong>福田 隆慧（03卒）</strong>
+    //       <strong>豊村 康太<br>(00年卒)</strong>
+    //     Produces two <span> blocks that CSS stacks vertically.
+    $html = preg_replace_callback(
+        '#<p class="title" style="margin-left: 10px;"><strong>(.*?)</strong></p>#u',
+        function ($m) {
+            $raw = $m[1];
+            // Normalize: <br> or <br /> or <br/> → pipe, full-width parens → half-width
+            $tmp = preg_replace('#<br\s*/?\s*>#i', '|', $raw);
+            $name = $tmp;
+            $grad = '';
+            if (strpos($tmp, '|') !== false) {
+                $parts = explode('|', $tmp, 2);
+                $name = trim($parts[0]);
+                $grad = trim($parts[1]);
+            } elseif (preg_match('#^(.+?)[（(]([^）)]*?卒[^）)]*?)[）)]\s*$#u', $tmp, $mm)) {
+                $name = trim($mm[1]);
+                $grad = '(' . trim($mm[2]) . ')';
+            }
+            $name_esc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+            $grad_esc = htmlspecialchars($grad, ENT_QUOTES, 'UTF-8');
+            $out  = '<p class="title gd-dr-title" style="margin-left: 10px;">';
+            $out .= '<span class="gd-dr-name">' . $name_esc . '</span>';
+            if ($grad !== '') {
+                $out .= '<span class="gd-dr-grad">' . $grad_esc . '</span>';
+            }
+            $out .= '</p>';
+            return $out;
+        },
+        $html
+    );
+
+    // 1e) Hero catchphrase: parent theme hardcodes color:#8fa5a2 (nearly invisible)
+    //     and the inline span has a broken `opacity:0.2` declaration.
+    //     Rebuild the <p class="catchphrase"> with a clean class so CSS can fully restyle.
+    $html = preg_replace_callback(
+        '#<p class="catchphrase rich_font"[^>]*>.*?</p>#us',
+        function ($m) {
+            // Was previously the same wording on both PC/SP captions.
+            return '<p class="catchphrase rich_font gd-hero-catch">'
+                . '<span class="gd-hero-catch-box">'
+                . '<span class="gd-hero-catch-line1">暁星OB</span>'
+                . '<span class="gd-hero-catch-x">×</span>'
+                . '<span class="gd-hero-catch-line2">歯科開業医 情報ポータル</span>'
+                . '</span></p>';
+        },
+        $html
+    );
+
+    // 1f) Rebuild footer SNS icons with inline SVG (parent theme uses the
+    //     design_plus icon-font but it fails to render on this install).
+    $sns_svg_fb = '<svg class="gd-sns-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-8.2h2.76l.41-3.2H13.5V7.55c0-.92.26-1.55 1.58-1.55h1.69V3.14C16.48 3.1 15.48 3 14.33 3 11.9 3 10.24 4.48 10.24 7.2v2.4H7.5v3.2h2.74V21h3.26z"/></svg>';
+    $sns_svg_ig = '<svg class="gd-sns-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.37 1.06.42 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.42 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.37-2.23.42-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.37-1.06-.42-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.37 2.23-.42C8.42 2.2 8.8 2.2 12 2.2zm0 1.98c-3.15 0-3.5 0-4.73.07-1.07.05-1.65.23-2.04.38-.5.2-.87.43-1.25.82-.39.38-.62.75-.82 1.25-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.58-.07 4.73s0 3.5.07 4.73c.05 1.07.23 1.65.38 2.04.2.5.43.87.82 1.25.38.39.75.62 1.25.82.39.15.97.33 2.04.38 1.24.06 1.58.07 4.73.07s3.5 0 4.73-.07c1.07-.05 1.65-.23 2.04-.38.5-.2.87-.43 1.25-.82.39-.38.62-.75.82-1.25.15-.39.33-.97.38-2.04.06-1.24.07-1.58.07-4.73s0-3.5-.07-4.73c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.82-1.25 3.4 3.4 0 0 0-1.25-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.58-.07-4.73-.07zm0 3.37a5.02 5.02 0 1 1 0 10.04 5.02 5.02 0 0 1 0-10.04zm0 8.28a3.26 3.26 0 1 0 0-6.52 3.26 3.26 0 0 0 0 6.52zm6.4-8.48a1.17 1.17 0 1 1-2.34 0 1.17 1.17 0 0 1 2.34 0z"/></svg>';
+    $sns_html = '<ul id="footer_social_link" class="gd-sns-list">'
+        . '<li class="gd-sns-item gd-sns-facebook"><a href="https://www.facebook.com/profile.php?id=61559697644215" target="_blank" rel="noopener" aria-label="Facebook">' . $sns_svg_fb . '</a></li>'
+        . '<li class="gd-sns-item gd-sns-instagram"><a href="https://www.instagram.com/gyosei_medical/" target="_blank" rel="noopener" aria-label="Instagram">' . $sns_svg_ig . '</a></li>'
+        . '</ul>';
+    $html = preg_replace(
+        '#<ul id="footer_social_link">.*?</ul>#us',
+        $sns_html,
         $html
     );
 
