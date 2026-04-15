@@ -1,0 +1,2937 @@
+/* =========================================================================
+   GYOSEI DENTAL — Prestige × Modern Brushup (GENSEN child)
+   Targets TCD GENSEN theme selectors on gyosei-dental.com
+   (design system shared with sister theme gensen-gyosei / GYOSEI MEDICAL)
+   Palette:
+     --gm-navy:    #0A1F3D  (deep academic navy)
+     --gm-gold:    #B8935A  (muted antique gold)
+     --gm-forest:  #1F4D3A  (medical forest accent)
+     --gm-ivory:   #FAF7F1  (warm background)
+     --gm-ink:     #141720  (body text)
+   ========================================================================= */
+
+:root {
+    --gm-navy: #0A1F3D;
+    --gm-navy-2: #12305A;
+    --gm-navy-soft: #1B3A66;
+    --gm-gold: #B8935A;
+    --gm-gold-2: #8C6E3E;
+    --gm-gold-soft: #D9C18C;
+    --gm-forest: #1F4D3A;
+    --gm-ivory: #FAF7F1;
+    --gm-ivory-2: #F3ECDC;
+    --gm-ink: #141720;
+    --gm-mute: #6B6F75;
+    --gm-tiffany: #5BA7BA;
+    --gm-tiffany-deep: #3F8A9D;
+    --gm-tiffany-soft: #A5D1DA;
+    --gm-hair: rgba(184, 147, 90, .4);
+    --gm-hair-strong: rgba(184, 147, 90, .7);
+    --gm-shadow: 0 22px 60px -32px rgba(10, 31, 61, .38);
+    --gm-shadow-soft: 0 8px 24px -14px rgba(10, 31, 61, .25);
+    --gm-serif: "Shippori Mincho B1", "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --gm-sans: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+    --gm-latin: "Cormorant Garamond", "Shippori Mincho B1", serif;
+}
+
+/* =========================================================================
+   Global foundation
+   ========================================================================= */
+
+html { scroll-behavior: smooth; }
+
+body,
+body.home,
+body.page,
+body.single,
+body.archive,
+body.search,
+body.wp-theme-gensen_tcd050 {
+    background: var(--gm-ivory) !important;
+    color: var(--gm-ink) !important;
+    font-family: var(--gm-sans) !important;
+    font-feature-settings: "palt" 1;
+    letter-spacing: .02em;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 20% 10%, rgba(184, 147, 90, .035) 0, transparent 45%),
+        radial-gradient(circle at 80% 90%, rgba(10, 31, 61, .04) 0, transparent 50%);
+    z-index: 0;
+}
+
+#header,
+#header_top,
+#main_contents,
+#footer,
+#return_top { position: relative; z-index: 1; }
+
+/* Headings */
+h1, h2, h3, h4,
+.rich_font,
+.headline,
+.catchphrase,
+.title,
+#main_contents h2,
+#main_contents h3,
+.cb_content h2,
+.cb_content h3 {
+    font-family: var(--gm-serif) !important;
+    font-weight: 600;
+    letter-spacing: .04em;
+    line-height: 1.55;
+    color: var(--gm-navy);
+}
+
+a { color: var(--gm-navy); text-decoration: none; transition: color .25s ease; }
+a:hover { color: var(--gm-gold-2); }
+
+/* =========================================================================
+   Header (#header, #header_top) — black top bar
+   ========================================================================= */
+
+#header,
+#header_top,
+#header_logo,
+#header_logo_fix {
+    background: #000 !important;
+    background-color: #000 !important;
+    border-bottom: none !important;
+    box-shadow: 0 6px 30px -24px rgba(0, 0, 0, .6);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    position: relative;
+    z-index: 100;
+}
+
+#header.active,
+body.header_fix #header {
+    z-index: 150;
+}
+
+#header *,
+#header_top *,
+#header_logo *,
+#header_logo_fix * {
+    color: var(--gm-ivory) !important;
+}
+
+#header_logo .logo,
+#header_logo_fix .logo,
+.logo.rich_font,
+.logo_area .logo {
+    font-family: var(--gm-latin), var(--gm-serif) !important;
+    color: var(--gm-ivory) !important;
+    letter-spacing: .12em;
+}
+
+/* Keep the original logo colors intact in the top bar.
+   If the source logo is too dark for the black bar, consider uploading a white version. */
+#header_logo .logo img,
+#header_logo_fix .logo img,
+#header_logo img.logo_retina,
+#header_logo_fix img.logo_retina {
+    filter: none !important;
+    -webkit-filter: none !important;
+    max-height: 52px !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#header #menu a,
+#header .menu a,
+#header nav a,
+#header_top .menu a,
+#header_top nav a,
+#header .menu-item > a {
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    letter-spacing: .18em;
+    color: var(--gm-ivory) !important;
+    font-weight: 500;
+    position: relative;
+    padding: 10px 14px !important;
+    transition: color .3s ease;
+}
+
+#header .menu a::after,
+#header_top .menu a::after,
+#header .menu-item > a::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 4px;
+    height: 1px;
+    background: var(--gm-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+}
+
+#header .menu a:hover::after,
+#header_top .menu a:hover::after,
+#header .menu-item > a:hover::after { transform: scaleX(1); }
+
+#header .menu a:hover,
+#header_top .menu a:hover { color: var(--gm-gold-soft) !important; }
+
+/* Header search box */
+#header_search,
+#index_header_search,
+.header_search_inputs {
+    background: #141720 !important;
+    border: 1px solid rgba(184, 147, 90, .4) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 6px 20px -10px rgba(0, 0, 0, .6);
+    color: var(--gm-ivory) !important;
+}
+
+#header_search {
+    position: relative;
+    z-index: 200;
+}
+
+/* Select dropdowns — must have solid background so options are legible */
+#header_search select,
+#index_header_search select,
+.header_search_inputs select,
+#header select {
+    background: #141720 !important;
+    background-color: #141720 !important;
+    color: var(--gm-ivory) !important;
+    border: 1px solid rgba(184, 147, 90, .3) !important;
+    border-radius: 0 !important;
+    padding: 12px 14px !important;
+    font-family: var(--gm-sans) !important;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+/* Option elements need solid bg (browser default is transparent) */
+#header_search select option,
+#index_header_search select option,
+.header_search_inputs select option,
+#header select option {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: var(--gm-ink) !important;
+    padding: 8px 12px !important;
+}
+
+#header_search input[type="text"],
+#index_header_search input[type="text"],
+.header_search_inputs input[type="text"] {
+    background: #141720 !important;
+    color: var(--gm-ivory) !important;
+    border: 1px solid rgba(184, 147, 90, .3) !important;
+}
+
+/* =========================================================================
+   Chosen.js dropdowns — TCD replaces native <select> with custom DOM
+   ========================================================================= */
+
+#header_search .chosen-container,
+#index_header_search .chosen-container,
+.header_search_inputs .chosen-container {
+    background: transparent !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    width: 100% !important;
+}
+
+/* The visible "button" that shows the current selection */
+#header_search .chosen-container .chosen-single,
+#header_search .chosen-container-single .chosen-single,
+#index_header_search .chosen-container .chosen-single,
+.header_search_inputs .chosen-container .chosen-single,
+.chosen-container-single .chosen-single {
+    background: #141720 !important;
+    background-image: none !important;
+    color: #fff !important;
+    border: 1px solid rgba(184, 147, 90, .4) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    height: 44px !important;
+    line-height: 44px !important;
+    padding: 0 30px 0 14px !important;
+}
+
+#header_search .chosen-container .chosen-single span,
+#header_search .chosen-container-single .chosen-single span,
+#index_header_search .chosen-container .chosen-single span,
+.header_search_inputs .chosen-single span,
+.chosen-container-single .chosen-single span {
+    color: #fff !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    letter-spacing: .04em !important;
+    margin-right: 24px !important;
+    line-height: 44px !important;
+}
+
+/* Arrow indicator */
+#header_search .chosen-container-single .chosen-single div,
+#index_header_search .chosen-container-single .chosen-single div,
+.chosen-container-single .chosen-single div {
+    top: 0 !important;
+    right: 12px !important;
+    width: 20px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+#header_search .chosen-container-single .chosen-single div b,
+.chosen-container-single .chosen-single div b {
+    background: none !important;
+    border: solid #fff !important;
+    border-width: 0 2px 2px 0 !important;
+    display: inline-block !important;
+    padding: 3px !important;
+    transform: rotate(45deg) !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin-top: -4px;
+}
+
+/* Open state: dropdown panel */
+#header_search .chosen-container.chosen-with-drop .chosen-single,
+.chosen-container.chosen-with-drop .chosen-single {
+    background: var(--gm-navy) !important;
+    border-color: var(--gm-gold) !important;
+}
+
+#header_search .chosen-container .chosen-drop,
+#index_header_search .chosen-container .chosen-drop,
+.header_search_inputs .chosen-drop,
+.chosen-container .chosen-drop {
+    background: #fff !important;
+    border: 1px solid var(--gm-navy) !important;
+    border-top: none !important;
+    box-shadow: 0 12px 28px rgba(10, 31, 61, .25) !important;
+    border-radius: 0 !important;
+}
+
+#header_search .chosen-container .chosen-search,
+.chosen-container .chosen-search {
+    background: var(--gm-ivory) !important;
+    padding: 10px !important;
+    border-bottom: 1px solid var(--gm-hair) !important;
+}
+
+#header_search .chosen-container .chosen-search input[type="text"],
+.chosen-container .chosen-search input[type="text"] {
+    background: #fff !important;
+    color: var(--gm-ink) !important;
+    border: 1px solid var(--gm-hair) !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+}
+
+/* Result list — this is where legibility matters most */
+#header_search .chosen-container .chosen-results,
+#index_header_search .chosen-container .chosen-results,
+.header_search_inputs .chosen-results,
+.chosen-container .chosen-results {
+    background: #fff !important;
+    color: var(--gm-ink) !important;
+    margin: 0 !important;
+    padding: 4px 0 !important;
+    max-height: 320px !important;
+}
+
+#header_search .chosen-container .chosen-results li,
+#index_header_search .chosen-container .chosen-results li,
+.header_search_inputs .chosen-results li,
+.chosen-container .chosen-results li,
+.chosen-container .chosen-results li.active-result {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: var(--gm-ink) !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    padding: 10px 16px !important;
+    line-height: 1.5 !important;
+    list-style: none !important;
+    border-bottom: 1px solid rgba(10, 31, 61, .06) !important;
+}
+
+#header_search .chosen-container .chosen-results li:hover,
+#header_search .chosen-container .chosen-results li.highlighted,
+#index_header_search .chosen-container .chosen-results li:hover,
+#index_header_search .chosen-container .chosen-results li.highlighted,
+.header_search_inputs .chosen-results li:hover,
+.header_search_inputs .chosen-results li.highlighted,
+.chosen-container .chosen-results li:hover,
+.chosen-container .chosen-results li.highlighted {
+    background: var(--gm-navy) !important;
+    background-color: var(--gm-navy) !important;
+    color: #fff !important;
+    background-image: none !important;
+}
+
+.chosen-container .chosen-results li.result-selected {
+    background: var(--gm-gold) !important;
+    background-color: var(--gm-gold) !important;
+    color: #000 !important;
+}
+
+/* Default "診療科目から選ぶ" placeholder-ish first option */
+.header_search_inputs .chosen-results li[data-option-array-index="0"],
+#header_search .chosen-results li[data-option-array-index="0"] {
+    background: var(--gm-ivory) !important;
+    background-color: var(--gm-ivory) !important;
+    color: var(--gm-mute) !important;
+    font-style: italic;
+    border-color: var(--gm-hair) !important;
+}
+
+.header_search_inputs .chosen-results li[data-option-array-index="0"]:hover,
+#header_search .chosen-results li[data-option-array-index="0"]:hover {
+    background: var(--gm-ivory-2) !important;
+    color: var(--gm-ink) !important;
+}
+
+/* "No results" message */
+.chosen-container .chosen-results li.no-results {
+    background: var(--gm-ivory) !important;
+    color: var(--gm-mute) !important;
+}
+
+#header_search_submit,
+.header_search_button {
+    background: var(--gm-gold) !important;
+    color: #000 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: var(--gm-sans) !important;
+    letter-spacing: .16em !important;
+    text-transform: uppercase;
+    transition: background .3s ease;
+}
+
+#header_search_submit:hover,
+.header_search_button:hover {
+    background: var(--gm-gold-soft) !important;
+    color: #000 !important;
+}
+
+/* =========================================================================
+   Hero slider (#header_slider) — compact prestige banner (slick-safe)
+   ========================================================================= */
+
+#header_slider {
+    position: relative;
+    background: var(--gm-navy);
+    max-height: 520px;
+    overflow: hidden;
+}
+
+#header_slider .item {
+    position: relative;
+    overflow: hidden;
+}
+
+#header_slider .item img {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none !important;
+    animation: none !important;
+    filter: none !important;
+}
+
+#header_slider .item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 31, 61, .2) 0%, rgba(10, 31, 61, .32) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Calm mode: no hover zoom on hero */
+#header_slider .item.slick-active img,
+#header_slider .item:hover img {
+    transform: none !important;
+}
+
+#header_slider .caption,
+#header_slider .item .caption,
+#header_slider .slick-slide .caption {
+    position: absolute !important;
+    top: 42% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 5 !important;
+    color: var(--gm-ivory) !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    width: 92% !important;
+    max-width: 900px;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Parent theme sets .inview-fadein opacity:0 and animates in — exempt hero */
+#header_slider,
+#header_slider .item,
+#header_slider .slick-slide,
+#header_slider .slick-slide.slick-active,
+#header_slider .item .caption,
+#header_slider .caption .headline,
+#header_slider .caption .catchphrase,
+#header_slider .item1 .caption {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#header_slider.inview-fadein,
+#header_slider .inview-fadein {
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Breathing room between hero slider and the search dropdown panel */
+#index_header_search {
+    margin-top: 36px !important;
+    padding: 28px 20px !important;
+}
+
+/* Eyebrow and logo image in caption — hidden per request */
+#header_slider .caption::before { content: none !important; display: none !important; }
+
+#header_slider .caption .fimage,
+#header_slider .caption .fimage img,
+#header_slider .caption p.fimage {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* legacy .fimage styling no longer applied */
+
+/* Caption sits on a solid dark plate (no text-shadow, no blur) — calm medical tone */
+#header_slider .caption {
+    background: rgba(10, 20, 35, .72) !important;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    padding: 32px 48px !important;
+    border: 1px solid rgba(184, 147, 90, .45);
+    max-width: 760px !important;
+    width: auto !important;
+}
+
+#header_slider .caption .headline,
+#header_slider .caption h2.headline,
+#header_slider .caption p.headline {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(22px, 2.8vw, 32px) !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    line-height: 1.5 !important;
+    letter-spacing: .06em !important;
+    margin: 0 0 14px !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+#header_slider .caption .headline::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 16px auto;
+}
+
+#header_slider .caption .catchphrase {
+    font-family: var(--gm-sans) !important;
+    font-size: clamp(13px, 1.05vw, 15px) !important;
+    color: rgba(255, 255, 255, .92) !important;
+    line-height: 1.8 !important;
+    letter-spacing: .04em !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+    max-width: 640px;
+    margin: 0 auto !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 720px) {
+    #header_slider .caption {
+        padding: 22px 24px !important;
+        max-width: 92% !important;
+    }
+}
+
+#header_slider .caption .button,
+#header_slider .caption a.button {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 16px 44px !important;
+    background: transparent !important;
+    color: var(--gm-ivory) !important;
+    border: 1px solid var(--gm-gold) !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    letter-spacing: .22em !important;
+    text-transform: uppercase;
+    border-radius: 0 !important;
+    transition: all .3s ease;
+}
+
+#header_slider .caption .button:hover {
+    background: var(--gm-gold) !important;
+    color: var(--gm-navy) !important;
+}
+
+/* News ticker */
+#index_news,
+#index_news_mobile {
+    background: var(--gm-ivory-2) !important;
+    border-top: 1px solid var(--gm-hair) !important;
+    border-bottom: 1px solid var(--gm-hair) !important;
+    padding: 14px 0 !important;
+}
+
+#index_news .inner,
+#index_news_mobile .inner {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+#index_news .newsticker,
+#index_news_mobile .newsticker {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+    min-width: 0;
+    color: var(--gm-navy) !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px;
+    letter-spacing: .06em;
+    margin: 0 !important;
+}
+
+#index_news .newsticker-list {
+    flex: 1 1 auto !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.newsticker-item {
+    list-style: none !important;
+    padding: 2px 0 !important;
+}
+
+.newsticker-item a {
+    color: var(--gm-navy) !important;
+    transition: color .25s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.newsticker-item a:hover { color: var(--gm-gold-2) !important; }
+
+.newsticker-item .entry-date {
+    flex: 0 0 auto;
+    font-family: var(--gm-latin) !important;
+    font-size: 12px !important;
+    color: var(--gm-gold-2) !important;
+    letter-spacing: .08em !important;
+    border-right: 1px solid var(--gm-hair);
+    padding-right: 14px;
+}
+
+/* お知らせ一覧 / 病院一覧 archive link — flat dark button, no outline */
+#index_news .archive_link,
+.cb_content-blog_list .archive_link {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.cb_content-blog_list .archive_link {
+    margin-top: 40px !important;
+    padding: 20px 0 !important;
+    text-align: center !important;
+    display: block !important;
+    width: 100%;
+}
+
+#index_news .archive_link a,
+.cb_content-blog_list .archive_link a {
+    display: inline-block !important;
+    background: #000 !important;
+    color: #fff !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: .16em !important;
+    text-transform: none !important;
+    padding: 14px 36px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    white-space: nowrap;
+    height: auto !important;
+    width: auto !important;
+    min-width: 160px;
+    transition: background .3s ease;
+    box-sizing: border-box;
+}
+
+/* Single-tone hover: bg changes to gold, text stays white — "entirely gold" feel */
+#index_news .archive_link a:hover,
+.cb_content-blog_list .archive_link a:hover {
+    background: var(--gm-gold) !important;
+    color: #fff !important;
+    transform: none !important;
+}
+
+.cb_content-blog_list #post_list {
+    margin-bottom: 24px !important;
+}
+
+#index_news .archive_link a:hover,
+.cb_content-blog_list .archive_link a:hover {
+    background: var(--gm-tiffany) !important;
+    color: #fff !important;
+    transform: none !important;
+}
+
+/* =========================================================================
+   Main contents (#main_contents, #main_col, #post_list)
+   ========================================================================= */
+
+#main_contents,
+#main_col {
+    background: var(--gm-ivory) !important;
+    padding-top: clamp(20px, 3vw, 40px) !important;
+    padding-bottom: clamp(50px, 7vw, 100px) !important;
+}
+
+/* Archive page headline (病院一覧 / カテゴリ一覧) */
+#archive_headline,
+.archive_header .headline {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(26px, 3.4vw, 40px) !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    text-align: center !important;
+    letter-spacing: .1em !important;
+    padding: 50px 20px 20px !important;
+    margin: 0 0 40px !important;
+    position: relative;
+    background: transparent !important;
+}
+
+#archive_headline::before,
+.archive_header .headline::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 0 auto 22px;
+}
+
+body.archive #post_list,
+body.blog #post_list,
+body.search #post_list {
+    margin-top: 20px !important;
+    margin-bottom: 60px !important;
+}
+
+/* Pagination on archive pages */
+.page_navi,
+.page_navi2 {
+    margin: 60px auto 20px !important;
+    padding: 30px 20px !important;
+    text-align: center !important;
+    border-top: 1px solid var(--gm-hair);
+    max-width: 1200px;
+}
+
+.page_navi ul,
+.page_navi2 ul,
+.page_navi .page-numbers,
+.page_navi2 .page-numbers {
+    display: inline-flex !important;
+    gap: 8px !important;
+    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+.page_navi li,
+.page_navi2 li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+}
+
+.page_navi a,
+.page_navi span,
+.page_navi2 a,
+.page_navi2 span,
+.page-numbers {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 14px !important;
+    border: 1px solid var(--gm-hair) !important;
+    background: #fff !important;
+    color: var(--gm-navy) !important;
+    font-family: var(--gm-latin) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    border-radius: 0 !important;
+    transition: all .25s ease;
+}
+
+.page_navi a:hover,
+.page_navi2 a:hover,
+.page-numbers:hover,
+.page-numbers.current {
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
+    border-color: var(--gm-navy) !important;
+}
+
+.page_navi2 p {
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    color: var(--gm-mute) !important;
+    letter-spacing: .08em;
+    margin: 0 0 14px !important;
+    text-align: center;
+}
+
+.page_navi2 .prev.disable,
+.page_navi2 .next.disable,
+.page-numbers.prev.disable,
+.page-numbers.next.disable {
+    opacity: .35;
+    pointer-events: none;
+}
+
+/* Content blocks (cb_content) */
+.cb_content {
+    background: transparent !important;
+    padding: clamp(24px, 3vw, 50px) 20px !important;
+}
+
+.cb_content .headline,
+.cb_content h2,
+.cb_content h3 {
+    font-family: var(--gm-serif) !important;
+    color: var(--gm-navy) !important;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+    margin-bottom: 24px;
+    letter-spacing: .08em;
+}
+
+.cb_content .headline::before,
+.cb_content h2::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 0 auto 14px;
+}
+
+/* JOURNAL topics banner — compact, low emphasis */
+.cb_content.custom_topics_section,
+.cb_content.custom_topics_section[style] {
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 14px 20px 6px !important;
+    margin: 0 !important;
+}
+
+.cb_content.custom_topics_section .inner {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.topics_banner,
+.topics_banner[style] {
+    border: 1px solid var(--gm-hair) !important;
+    background: #fff !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    max-width: 340px !important;
+    text-align: center !important;
+    overflow: hidden;
+    box-shadow: var(--gm-shadow-soft);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.topics_banner:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--gm-shadow);
+}
+
+.topics_banner a {
+    display: block;
+    line-height: 0;
+}
+
+.topics_banner img,
+.topics_banner a img,
+.topics_banner img[style] {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Clinic list / post list */
+#post_list {
+    max-width: 1200px;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px !important;
+    list-style: none;
+}
+
+#post_list .article,
+#post_list li.article,
+.cb_content-blog_list .article {
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    border-radius: 2px !important;
+    box-shadow: var(--gm-shadow-soft) !important;
+    overflow: visible !important;
+    position: relative;
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease, border-color .35s ease;
+    display: flex !important;
+    flex-direction: column;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    float: none !important;
+    min-height: 0;
+}
+
+#post_list .article > .image,
+#post_list li.article > .image {
+    overflow: hidden;
+}
+
+#post_list .article::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gm-gold) 0%, var(--gm-gold-soft) 50%, var(--gm-gold) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .5s ease;
+    z-index: 2;
+}
+
+#post_list .article:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--gm-shadow) !important;
+    border-color: var(--gm-hair-strong) !important;
+}
+
+#post_list .article:hover::before { transform: scaleX(1); }
+
+#post_list .article > a {
+    display: block;
+    flex: 1 0 auto;
+}
+
+/* Clinic top icon — constrained aspect ratio */
+#post_list .article .image {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--gm-ivory-2);
+}
+
+#post_list .article .image img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+}
+
+#post_list .article:hover .image img { transform: scale(1.05); }
+
+/* Clinic name (h2/h3.title) — eyebrow caption on home, main title on archive */
+#post_list .article h3.title,
+#post_list .article h2.title,
+#post_list .article center h3.title,
+#post_list .article center h2.title,
+#post_list .article .title {
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--gm-mute) !important;
+    line-height: 1.6 !important;
+    letter-spacing: .12em !important;
+    padding: 18px 20px 14px !important;
+    margin: 0 !important;
+    text-align: center;
+    text-transform: none;
+    min-height: auto !important;
+    word-break: break-word;
+}
+
+#post_list .article h3.title strong,
+#post_list .article h2.title strong {
+    font-weight: 500;
+}
+
+#post_list .article h3.title::before,
+#post_list .article h2.title::before,
+#post_list .article .title::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 0 auto 12px;
+    opacity: .7;
+}
+
+/* On archive/category pages (no wp-block-columns doctor block) — promote title */
+body.archive #post_list .article h2.title,
+body.blog #post_list .article h2.title,
+body.search #post_list .article h2.title {
+    font-family: var(--gm-serif) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    letter-spacing: .04em !important;
+    padding: 22px 22px 16px !important;
+}
+
+body.archive #post_list .article h2.title::before,
+body.blog #post_list .article h2.title::before,
+body.search #post_list .article h2.title::before {
+    width: 36px;
+    margin-bottom: 14px;
+    opacity: 1;
+}
+
+#post_list .article center {
+    display: block;
+    text-align: center;
+}
+
+/* Doctor row (wp-block-columns) — PRIMARY: large portrait + name */
+#post_list .article .wp-block-columns {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 22px 18px 18px !important;
+    margin: 0 !important;
+}
+
+#post_list .article .wp-block-column {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    text-align: center;
+}
+
+#post_list .article .wp-block-column:first-child {
+    flex: 0 0 auto !important;
+    width: 140px !important;
+    margin: 0 auto !important;
+}
+
+#post_list .article .wp-block-column:nth-child(2) {
+    flex: 1 1 auto !important;
+    min-width: 0;
+    width: 100% !important;
+}
+
+#post_list .article .wp-block-column figure {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gm-gold);
+    box-shadow: 0 10px 28px rgba(10, 31, 61, .22);
+    background: #fff;
+    position: relative;
+}
+
+#post_list .article .wp-block-column figure::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid var(--gm-hair);
+    pointer-events: none;
+}
+
+#post_list .article .wp-block-column figure img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    display: block;
+    transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+}
+
+#post_list .article:hover .wp-block-column figure img {
+    transform: scale(1.06);
+}
+
+#post_list .article .wp-block-column p.title {
+    font-family: var(--gm-serif) !important;
+    font-size: 22px !important;
+    line-height: 1.4 !important;
+    letter-spacing: .05em !important;
+    color: var(--gm-navy) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    font-weight: 600;
+}
+
+#post_list .article .wp-block-column p.title strong {
+    font-weight: 600;
+    font-size: 22px;
+    display: inline;
+}
+
+/* "(08年卒)" suffix — smaller, placed under the name via <br> */
+#post_list .article .wp-block-column p.title br {
+    display: block;
+    content: "";
+    margin-top: 2px;
+}
+
+/* Suppress the empty trailing <p class="title"> */
+#post_list .article .wp-block-column p.title:empty {
+    display: none !important;
+}
+
+/* Suppress the empty trailing <p class="title"> */
+#post_list .article .wp-block-column p.title:empty,
+#post_list .article .wp-block-column p.title:not(:has(strong)) {
+    display: none !important;
+}
+
+/* =========================================================================
+   Meta / tags — solid color pills, single line, compact
+   ========================================================================= */
+
+#post_list .article ul.meta,
+.cb_content-blog_list ul.meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 10px 14px 16px !important;
+    margin: 0 !important;
+    list-style: none !important;
+    border-top: 1px solid var(--gm-hair);
+    background: linear-gradient(180deg, rgba(250, 247, 241, 0) 0%, var(--gm-ivory) 100%);
+}
+
+#post_list .article ul.meta li.cat,
+.cb_content-blog_list ul.meta li.cat {
+    display: inline-flex !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    float: none !important;
+    min-width: 0;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#post_list .article ul.meta li.cat a,
+.cb_content-blog_list ul.meta li.cat a {
+    display: inline-block !important;
+    padding: 4px 10px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    border-radius: 2px !important;
+    white-space: nowrap;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    transition: filter .25s ease, transform .25s ease;
+    border: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#post_list .article ul.meta li.cat a span,
+.cb_content-blog_list ul.meta li.cat a span {
+    background: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border: none !important;
+    font-size: inherit !important;
+    letter-spacing: inherit !important;
+}
+
+#post_list .article ul.meta li.cat a:hover,
+.cb_content-blog_list ul.meta li.cat a:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
+/* 科目（診療科） → navy — applies to both <a> and <span> variants */
+a.cat-category,
+span.cat-category,
+li.cat .cat-category,
+#post_list .article .cat-category,
+#post_list2 .article .cat-category,
+.cb_content-blog_list .cat-category {
+    display: inline-block !important;
+    background: var(--gm-navy) !important;
+    color: #fff !important;
+    padding: 4px 10px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    border-radius: 2px !important;
+    border: none !important;
+}
+
+/* 地域 → gold */
+a.cat-category2,
+span.cat-category2,
+li.cat .cat-category2,
+#post_list .article .cat-category2,
+#post_list2 .article .cat-category2,
+.cb_content-blog_list .cat-category2 {
+    display: inline-block !important;
+    background: var(--gm-gold) !important;
+    color: var(--gm-navy) !important;
+    padding: 4px 10px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    border-radius: 2px !important;
+    border: none !important;
+}
+
+/* 卒業年代 → forest */
+a.cat-category3,
+span.cat-category3,
+li.cat .cat-category3,
+#post_list .article .cat-category3,
+#post_list2 .article .cat-category3,
+.cb_content-blog_list .cat-category3,
+#post_list .article ul.meta li.cat a.cat-category3,
+#post_list .article ul.meta li.cat:nth-child(3) a {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: var(--gm-forest) !important;
+    color: #fff !important;
+    padding: 4px 10px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    border-radius: 2px !important;
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    position: static !important;
+    clip: auto !important;
+    clip-path: none !important;
+}
+
+#post_list .article ul.meta li.cat a.cat-category3 span,
+#post_list .article ul.meta li.cat:nth-child(3) a span {
+    display: inline !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #fff !important;
+    font-size: 10.5px !important;
+    font-family: var(--gm-sans) !important;
+}
+
+#post_list .article .entry-date,
+.entry-date.updated {
+    font-family: var(--gm-latin) !important;
+    color: var(--gm-mute) !important;
+    letter-spacing: .1em;
+}
+
+/* Custom search form in body */
+.custom_search_form,
+#custom_search_form {
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    padding: clamp(26px, 4vw, 50px) !important;
+    box-shadow: var(--gm-shadow-soft);
+    margin: 30px auto;
+}
+
+.custom_search_form select,
+.custom_search_form input[type="text"],
+#custom_search_form select,
+#custom_search_form input[type="text"] {
+    border: 1px solid var(--gm-hair) !important;
+    border-radius: 0 !important;
+    padding: 14px 18px !important;
+    font-family: var(--gm-sans) !important;
+    color: var(--gm-ink) !important;
+    background: #fff !important;
+}
+
+.custom_search_form input[type="submit"],
+#custom_search_form input[type="submit"],
+.custom_search_form button {
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
+    border: 1px solid var(--gm-navy) !important;
+    border-radius: 0 !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    letter-spacing: .22em !important;
+    text-transform: uppercase;
+    padding: 16px 40px !important;
+    transition: all .3s ease;
+}
+
+.custom_search_form input[type="submit"]:hover,
+#custom_search_form input[type="submit"]:hover,
+.custom_search_form button:hover {
+    background: var(--gm-gold) !important;
+    color: var(--gm-navy) !important;
+    border-color: var(--gm-gold) !important;
+}
+
+/* Topics banner */
+.topics_banner {
+    border-top: 1px solid var(--gm-hair);
+    border-bottom: 1px solid var(--gm-hair);
+    background: var(--gm-ivory-2);
+    padding: 50px 20px;
+}
+
+/* =========================================================================
+   Global buttons
+   ========================================================================= */
+
+.archive_link,
+.archive_link a,
+button.submit,
+.btn,
+input[type="submit"],
+.wp-block-button__link {
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    letter-spacing: .22em !important;
+    padding: 16px 44px !important;
+    border: 1px solid var(--gm-navy) !important;
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .3s ease;
+    display: inline-block;
+}
+
+.archive_link:hover,
+.archive_link a:hover,
+button.submit:hover,
+.btn:hover,
+input[type="submit"]:hover,
+.wp-block-button__link:hover {
+    background: var(--gm-gold) !important;
+    color: var(--gm-navy) !important;
+    border-color: var(--gm-gold) !important;
+    transform: translateY(-2px);
+}
+
+/* =========================================================================
+   Single / article pages
+   ========================================================================= */
+
+.single #main_contents,
+.page #main_contents {
+    padding-top: clamp(30px, 4vw, 60px) !important;
+}
+
+/* Universal main_col — center, remove parent float */
+#main_col {
+    float: none !important;
+    width: auto !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 40px 20px !important;
+    display: block !important;
+}
+
+#main_col::before,
+#main_col::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Single clinic pages have left + side column — use grid */
+body.single #main_col {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 280px !important;
+    gap: 40px !important;
+}
+
+body.single #left_col {
+    background: #fff;
+    border: 1px solid var(--gm-hair);
+    box-shadow: var(--gm-shadow-soft);
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    float: none !important;
+    min-width: 0;
+    grid-column: 1;
+}
+
+body.single #side_col {
+    grid-column: 2;
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 0;
+}
+
+body.single #side_col .widget {
+    background: #fff;
+    border: 1px solid var(--gm-hair);
+    padding: 24px 20px !important;
+    margin: 0 0 24px !important;
+    box-shadow: var(--gm-shadow-soft);
+}
+
+@media (max-width: 900px) {
+    body.single #main_col {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 28px !important;
+    }
+
+    body.single #left_col,
+    body.single #side_col {
+        grid-column: 1;
+    }
+}
+
+#article_header {
+    padding: clamp(30px, 4vw, 60px) clamp(20px, 3vw, 50px) 20px !important;
+    text-align: center;
+    border-bottom: 1px solid var(--gm-hair);
+}
+
+#article_header #post_title,
+h2#post_title,
+h2#post_title.rich_font,
+#post_title[style] {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(22px, 3vw, 36px) !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    line-height: 1.5 !important;
+    letter-spacing: .08em !important;
+    margin: 0 !important;
+    padding-top: 14px !important;
+    padding-bottom: 0 !important;
+    position: relative;
+    display: block;
+}
+
+#article_header #post_title::before,
+h2#post_title::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 0 auto 22px;
+}
+
+#post_image {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0;
+}
+
+#post_image img {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+}
+
+.single .entry-title,
+.page .entry-title,
+.single h1.title,
+.page h1.title {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(26px, 3.6vw, 40px) !important;
+    color: var(--gm-navy) !important;
+    line-height: 1.55 !important;
+    letter-spacing: .06em;
+    padding-bottom: 28px;
+    margin-bottom: 34px;
+    border-bottom: 1px solid var(--gm-hair);
+    position: relative;
+}
+
+.single .entry-title::before,
+.page .entry-title::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin-bottom: 20px;
+}
+
+/* =========================================================================
+   Single page: empty social links (href=" " or blank) — visually disabled
+   ========================================================================= */
+
+a[href=" "],
+a[href=""],
+a[href="#"] {
+    opacity: .22 !important;
+    pointer-events: none !important;
+    cursor: default !important;
+    filter: grayscale(100%);
+}
+
+a[href=" "] img,
+a[href=""] img,
+a[href="#"] img {
+    filter: grayscale(100%);
+}
+
+a[href=" "]::after {
+    content: "";
+}
+
+/* Subtle label to indicate disabled */
+a[href=" "]:hover,
+a[href=""]:hover {
+    opacity: .22 !important;
+}
+
+/* =========================================================================
+   Single page doctor block (#post_list2) — medical PORTRAIT PRIMARY
+   ========================================================================= */
+
+#post_list2 {
+    max-width: 720px;
+    margin: 24px auto !important;
+    padding: 0 20px !important;
+    list-style: none !important;
+}
+
+#post_list2 .article,
+#post_list2 li.article {
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    padding: 32px clamp(20px, 3vw, 48px) !important;
+    margin: 0 !important;
+    list-style: none !important;
+    box-shadow: var(--gm-shadow-soft);
+    opacity: 1 !important;
+}
+
+#post_list2 .article > div {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    gap: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#post_list2 .article .image,
+#post_list2 .article .image[style] {
+    width: 170px !important;
+    height: 170px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gm-gold);
+    box-shadow: 0 12px 32px rgba(10, 31, 61, .22);
+    background: #fff;
+    position: relative;
+    flex: 0 0 auto !important;
+}
+
+#post_list2 .article .image::after {
+    content: "";
+    position: absolute;
+    inset: -9px;
+    border-radius: 50%;
+    border: 1px solid var(--gm-hair);
+    pointer-events: none;
+}
+
+#post_list2 .article .image img,
+#post_list2 .article .image img[style] {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block;
+}
+
+#post_list2 .article .wp-block-column,
+#post_list2 .article .wp-block-column[style] {
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    max-width: none !important;
+}
+
+#post_list2 .article .wp-block-column p.title,
+#post_list2 .article .wp-block-column p.title[style],
+#post_list2 .article .wp-block-column p[style]:first-child,
+#post_list2 .article .wp-block-column > p:first-of-type {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(24px, 3vw, 30px) !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    line-height: 1.5 !important;
+    letter-spacing: .06em !important;
+    margin: 0 0 6px !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+#post_list2 .article .wp-block-column p strong {
+    font-weight: 600 !important;
+    font-size: inherit !important;
+}
+
+#post_list2 .article ul#post_meta_top,
+#post_list2 .article ul.meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    margin: 14px 0 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#post_list2 .article ul#post_meta_top li.cat,
+#post_list2 .article ul.meta li.cat {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+}
+
+#post_list2 .article ul#post_meta_top li.cat a,
+#post_list2 .article ul.meta li.cat a {
+    display: inline-block !important;
+    padding: 5px 12px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: .06em !important;
+    border-radius: 2px !important;
+    white-space: nowrap;
+}
+
+/* Hide the SP duplicate article on desktop, show on mobile */
+@media (min-width: 768px) {
+    #post_list2 .article.sp { display: none !important; }
+}
+
+@media (max-width: 767px) {
+    #post_list2 .article.pc { display: none !important; }
+}
+
+/* =========================================================================
+   Single page MEDIA section — unified beige background + URL overflow
+   ========================================================================= */
+
+/* =========================================================================
+   Article section wraps — alternating white/beige, unified headings
+   ========================================================================= */
+
+#article {
+    display: block;
+}
+
+/* JS-wrapped section containers */
+.gm-section {
+    padding: 44px clamp(24px, 4vw, 56px) !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.gm-section-white { background: #fff !important; }
+.gm-section-beige { background: #F3F2E9 !important; }
+
+/* Neutralize all inline-styled beige <section> and background divs inside article wraps —
+   the wrap class is the single source of truth for background */
+#article .gm-section section,
+#article .gm-section section[style],
+#article .gm-section div[style*="F3F2E9"],
+#article .gm-section div[style*="background"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Hide all <hr> dividers — visual separation comes from alternating bg now */
+#article hr,
+#article .gm-section hr {
+    display: none !important;
+}
+
+#article .gm-section > div[style*="margin: 25px"],
+#article .gm-section > div[style*="margin:25px"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Unified section heading styles (override TCD inline #66B0C1 / Merriweather) */
+.gm-sect-heading {
+    padding: 0 !important;
+    margin: 0 0 22px !important;
+    background: transparent !important;
+    text-align: center !important;
+}
+
+.gm-sect-heading p,
+.gm-sect-heading P,
+.gm-sect-heading p[style],
+.gm-sect-heading P[style] {
+    font-family: var(--gm-serif) !important;
+    font-size: clamp(18px, 2.2vw, 24px) !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    font-style: normal !important;
+    letter-spacing: .18em !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 0 14px 0 !important;
+    text-align: center !important;
+    position: relative;
+    display: block;
+    background: transparent !important;
+}
+
+.gm-sect-heading p::after,
+.gm-sect-heading P::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 14px auto 0;
+}
+
+/* MEDIA section specific tweaks — hide URL text, compact item layout */
+.gm-section #post_list2 .article a > p,
+.gm-section #post_list2 .article p:has(+ *):has(span),
+.gm-section #post_list2 .article .wp-block-column a p {
+    display: none !important;
+}
+
+/* More general: hide the URL p inside MEDIA (the one after the title) */
+.gm-section #post_list2 .article .wp-block-column a {
+    display: none !important;
+}
+
+/* Keep the title visible, drop the URL entirely */
+.gm-section #post_list2 .article .wp-block-column p.title {
+    text-align: center !important;
+    display: block !important;
+    font-family: var(--gm-serif) !important;
+    font-size: 14px !important;
+    color: var(--gm-navy) !important;
+    line-height: 1.7 !important;
+    padding: 0 10px !important;
+}
+
+/* MEDIA items — prevent URL overflow in the subtitle */
+#post_list2 .article .wp-block-column p,
+#post_list2 .article p.title,
+#post_list2 .article p {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+}
+
+#post_list2 .article a {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    max-width: 100%;
+    display: inline-block;
+}
+
+#post_list2 .article .wp-block-column a p {
+    font-size: 12px !important;
+    color: var(--gm-gold-2) !important;
+    line-height: 1.6 !important;
+    margin: 6px 0 0 !important;
+    text-decoration: underline;
+    letter-spacing: 0 !important;
+}
+
+/* =========================================================================
+   Sidebar / side_col widgets — ensure dropdowns and inputs are readable
+   ========================================================================= */
+
+#side_col,
+#side_col .widget {
+    color: var(--gm-ink);
+}
+
+#side_col select,
+#side_col input[type="text"],
+#side_col input[type="search"],
+#side_col input[type="email"] {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: var(--gm-ink) !important;
+    border: 1px solid var(--gm-hair) !important;
+    padding: 12px 14px !important;
+    width: 100%;
+}
+
+#side_col select option {
+    background: #fff !important;
+    color: var(--gm-ink) !important;
+}
+
+#side_col .widget_categories a,
+#side_col .widget_archive a,
+#side_col ul li a {
+    color: var(--gm-navy) !important;
+}
+
+#side_col .widget_categories a:hover,
+#side_col ul li a:hover {
+    color: var(--gm-gold-2) !important;
+}
+
+#side_col .side_headline,
+#side_col .widget .side_headline,
+#side_col h3 {
+    font-family: var(--gm-serif) !important;
+    color: var(--gm-navy) !important;
+    font-size: 16px !important;
+    letter-spacing: .1em !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 1px solid var(--gm-hair) !important;
+    background: transparent !important;
+}
+
+#side_col #searchsubmit,
+#side_col .search_button {
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
+    border: none !important;
+}
+
+/* =========================================================================
+   Footer — Tiffany-teal unified tone
+   ========================================================================= */
+
+#footer,
+#footer_nav,
+#footer_contents,
+#footer .inner {
+    background: var(--gm-tiffany) !important;
+    background-color: var(--gm-tiffany) !important;
+    color: #fff !important;
+}
+
+#footer {
+    position: relative;
+    padding: 0 !important;
+    border-top: 3px solid var(--gm-gold);
+}
+
+#footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--gm-gold) 20%, var(--gm-gold-soft) 50%, var(--gm-gold) 80%, transparent 100%);
+}
+
+#footer_nav {
+    padding: 70px 20px 40px !important;
+    background: var(--gm-tiffany) !important;
+}
+
+#footer_contents {
+    padding: 0 20px !important;
+    background: var(--gm-tiffany) !important;
+    border-top: 1px solid rgba(255, 255, 255, .25);
+}
+
+#footer_contents .inner {
+    background: transparent !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 50px 0 0 !important;
+    text-align: center;
+}
+
+#footer *,
+#footer a,
+#footer p,
+#footer h1,
+#footer h2,
+#footer h3,
+#footer_contents *,
+#footer_info *,
+#footer_logo *,
+#footer_nav *,
+#footer_bottom_menu * {
+    color: #fff !important;
+}
+
+#footer a { transition: color .25s ease; }
+#footer a:hover { color: var(--gm-gold) !important; }
+
+#footer_logo .logo,
+#footer_logo .logo.rich_font {
+    font-family: var(--gm-latin), var(--gm-serif) !important;
+    letter-spacing: .14em;
+}
+
+#footer_nav {
+    padding: 20px !important;
+    max-width: 1200px;
+    margin: 0 auto !important;
+}
+
+#footer_nav .inner {
+    padding: 0 !important;
+    max-width: none !important;
+}
+
+.footer_nav_cols {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 40px !important;
+}
+
+.footer_nav_col {
+    flex: 1 1 380px !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+    min-width: 0;
+}
+
+.footer_nav_col:first-child { border-left: none !important; padding-left: 0 !important; }
+
+/* Section headlines (診療科目 / エリア) — override inline TCD backgrounds */
+.footer_nav_col .headline,
+.footer_nav_col > .headline[style] {
+    background: transparent !important;
+    color: #fff !important;
+    font-family: var(--gm-serif) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: .14em !important;
+    padding: 0 0 14px 0 !important;
+    margin: 0 0 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .35) !important;
+    position: relative;
+    text-align: left !important;
+}
+
+.footer_nav_col .headline::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--gm-gold);
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+/* Category / area item lists — pill tags */
+.footer_nav_col ul,
+.footer_nav_col ul.clearfix {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 8px 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.footer_nav_col ul li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    border: none !important;
+    display: inline-flex;
+}
+
+.footer_nav_col ul li a {
+    display: inline-block !important;
+    padding: 7px 14px !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    color: #fff !important;
+    background: rgba(255, 255, 255, .1) !important;
+    border: 1px solid rgba(255, 255, 255, .45) !important;
+    border-radius: 2px !important;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+    white-space: nowrap;
+}
+
+.footer_nav_col ul li a:hover {
+    background: #fff !important;
+    color: var(--gm-tiffany-deep) !important;
+    border-color: #fff !important;
+    transform: translateY(-1px);
+}
+
+.footer_nav_category ul li a {
+    background: rgba(255, 255, 255, .12) !important;
+    border-color: rgba(255, 255, 255, .5) !important;
+}
+
+.footer_nav_category2 ul li a {
+    background: rgba(255, 255, 255, .06) !important;
+    border-color: rgba(255, 255, 255, .45) !important;
+    color: #fff !important;
+}
+
+#footer_social_link .facebook,
+#footer_social_link .insta {
+    color: var(--gm-gold-soft) !important;
+    transition: color .25s ease;
+}
+
+#footer_social_link .facebook:hover,
+#footer_social_link .insta:hover {
+    color: var(--gm-ivory) !important;
+}
+
+/* Footer logo (center it) */
+#footer_logo {
+    text-align: center;
+    margin: 0 auto 26px !important;
+}
+
+#footer_logo .logo_area {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#footer_logo .logo_retina {
+    max-width: 200px !important;
+    height: auto !important;
+    filter: brightness(0) invert(1);
+}
+
+/* Footer social links — larger, clearer */
+#footer_social_link {
+    display: flex !important;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 0 26px !important;
+    margin: 0 !important;
+    list-style: none;
+}
+
+#footer_social_link li {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+}
+
+#footer_social_link li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border-radius: 50%;
+    font-size: 0 !important;
+    text-indent: 0 !important;
+    position: relative;
+    z-index: 2;
+    transition: transform .25s ease, background .25s ease;
+    color: var(--gm-tiffany) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    overflow: visible;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+#footer_social_link li a * {
+    pointer-events: none !important;
+}
+
+/* Kill parent TCD icon font ::before (both on li and on a) so only my SVG ::after shows */
+#footer_social_link li::before,
+#footer_social_link li:hover::before,
+#footer_social_link li a::before,
+#footer_social_link li.facebook::before,
+#footer_social_link li.facebook a::before,
+#footer_social_link li.facebook:hover::before,
+#footer_social_link li.insta::before,
+#footer_social_link li.insta a::before,
+#footer_social_link li.insta:hover::before {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    font-size: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+#footer_social_link li a::after {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 400;
+    text-indent: 0;
+    font-family: "Arial", sans-serif;
+    color: var(--gm-tiffany-deep);
+    pointer-events: none !important;
+}
+
+#footer_social_link li.facebook a::after {
+    content: "";
+    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233F8A9D'><path d='M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A23.65 23.65 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.361H7.332v3.209h2.747v8.196h3.318Z'/></svg>");
+}
+
+#footer_social_link li.insta a::after {
+    content: "";
+    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233F8A9D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5' ry='5'/><path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'/><line x1='17.5' y1='6.5' x2='17.51' y2='6.5'/></svg>");
+}
+
+#footer_social_link li a:hover {
+    transform: translateY(-2px);
+    background: #fff;
+}
+
+/* =========================================================================
+   Footer bottom menu — simple centered inline links
+   ========================================================================= */
+
+#footer_bottom_menu {
+    text-align: center;
+    padding: 22px 0 18px !important;
+    margin: 20px 0 0 !important;
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, .25);
+}
+
+#footer_bottom_menu ul,
+#footer_bottom_menu .menu {
+    display: inline-flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+#footer_bottom_menu li {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+    border: none !important;
+}
+
+#footer_bottom_menu li a {
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    color: #fff !important;
+    letter-spacing: .14em !important;
+    padding: 6px 0 !important;
+    background: transparent !important;
+    border: none !important;
+    transition: color .25s ease;
+}
+
+#footer_bottom_menu li a:hover {
+    color: var(--gm-gold) !important;
+}
+
+/* =========================================================================
+   Copyright — absolute bottom centered bar
+   ========================================================================= */
+
+#copyright {
+    display: block !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, .75) !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    letter-spacing: .04em !important;
+    text-transform: none !important;
+    padding: 18px 20px !important;
+    margin: 14px 0 0 !important;
+    border: none !important;
+    border-top: 1px solid rgba(255, 255, 255, .2) !important;
+    text-align: center !important;
+    line-height: 1.6 !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+}
+
+#copyright a,
+#copyright span {
+    color: rgba(255, 255, 255, .75) !important;
+    text-decoration: none;
+    font-size: inherit !important;
+    letter-spacing: inherit !important;
+}
+
+#copyright a:hover {
+    color: #fff !important;
+}
+
+/* Return top button — small floating icon, no full-width bar */
+#return_top {
+    position: fixed !important;
+    right: 24px !important;
+    bottom: 24px !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: transparent !important;
+    border: none !important;
+    z-index: 300;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#return_top a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--gm-tiffany-deep) !important;
+    background-color: var(--gm-tiffany-deep) !important;
+    color: #fff !important;
+    border-radius: 50%;
+    font-size: 0 !important;
+    text-indent: -9999px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+    transition: transform .25s ease, background .25s ease;
+    position: relative;
+}
+
+#return_top a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: translate(-50%, -30%) rotate(-45deg);
+}
+
+#return_top a span {
+    display: none !important;
+}
+
+#return_top a:hover {
+    background: #fff !important;
+    transform: translateY(-3px);
+}
+
+#return_top a:hover::after {
+    border-top-color: var(--gm-tiffany-deep);
+    border-right-color: var(--gm-tiffany-deep);
+}
+
+/* =========================================================================
+   Forms (global)
+   ========================================================================= */
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+textarea,
+select {
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    border-radius: 0 !important;
+    padding: 14px 18px !important;
+    font-family: var(--gm-sans) !important;
+    color: var(--gm-ink) !important;
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--gm-gold) !important;
+    box-shadow: 0 0 0 3px rgba(184, 147, 90, .14) !important;
+    outline: none !important;
+}
+
+/* =========================================================================
+   Return to top button
+   ========================================================================= */
+
+#return_top,
+#return_top a {
+    background: var(--gm-navy) !important;
+    color: var(--gm-gold-soft) !important;
+    border: 1px solid var(--gm-gold) !important;
+    transition: all .3s ease;
+}
+
+#return_top:hover,
+#return_top a:hover {
+    background: var(--gm-gold) !important;
+    color: var(--gm-navy) !important;
+}
+
+/* =========================================================================
+   Calm mode: suppress most theme animations (medical tone)
+   ========================================================================= */
+
+.gm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+.gm-reveal.is-in { opacity: 1 !important; transform: none !important; }
+
+.inview-fadein,
+.inview-fadein * {
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+#post_list .article,
+#post_list2 .article,
+.cb_content {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Subtle hover only on clinic cards (still need some feedback) */
+#post_list .article:hover {
+    transform: translateY(-3px);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* =========================================================================
+   Home banners — 2 column layout (server-side tagged via functions.php)
+   ========================================================================= */
+
+.gm-home-banners,
+#cb_1 .inner > div.gm-home-banners,
+#cb_1 .inner .clearfix.gm-home-banners {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: 1fr !important;
+    gap: 28px !important;
+    max-width: 900px !important;
+    margin: 40px auto 10px !important;
+    padding: 0 20px !important;
+    float: none !important;
+    align-items: stretch !important;
+}
+
+.gm-home-banners > .gm-home-banner-item,
+.gm-home-banners > div.gm-home-banner-item {
+    display: flex !important;
+    flex-direction: column;
+    padding: 30px 24px !important;
+    margin: 0 !important;
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    box-shadow: var(--gm-shadow-soft) !important;
+    transition: transform .3s ease, box-shadow .3s ease;
+    overflow: hidden;
+    height: 100% !important;
+    min-height: 340px;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Image anchor wrapper — compact, sits above label */
+.gm-home-banners > .gm-home-banner-item > a:first-child,
+.gm-home-banners > .gm-home-banner-item > center:first-of-type,
+.gm-home-banners > .gm-home-banner-item > a:first-of-type {
+    flex: 0 0 auto;
+    display: block;
+    line-height: 0;
+    margin: 0 0 22px 0;
+    max-width: 100%;
+    text-decoration: none;
+}
+
+.gm-home-banners > .gm-home-banner-item img {
+    width: auto !important;
+    height: 100px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block;
+    margin: 0 auto;
+}
+
+.gm-home-banners > .gm-home-banner-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--gm-shadow);
+}
+
+.gm-home-banners > .gm-home-banner-item center,
+.gm-home-banners > .gm-home-banner-item > * {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.gm-home-banners > .gm-home-banner-item a {
+    display: block;
+    line-height: 0;
+}
+
+.gm-home-banners > .gm-home-banner-item img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block;
+}
+
+.gm-home-banners > .gm-home-banner-item p {
+    margin: 0 !important;
+    text-align: center;
+}
+
+/* JS-replaced label block */
+.gm-home-banners .gm-banner-label {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    width: 100%;
+}
+
+.gm-home-banners .gm-banner-title {
+    font-family: var(--gm-serif) !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: var(--gm-navy) !important;
+    letter-spacing: .08em !important;
+    line-height: 1.2;
+    display: block;
+    margin: 0;
+}
+
+.gm-home-banners .gm-banner-sub {
+    font-family: var(--gm-sans) !important;
+    font-size: 13px !important;
+    color: var(--gm-mute) !important;
+    letter-spacing: .08em;
+    line-height: 1.5;
+    font-weight: 400 !important;
+    display: block;
+    margin: 0;
+}
+
+@media (max-width: 720px) {
+    .gm-home-banners .gm-banner-title {
+        font-size: 24px !important;
+    }
+    .gm-home-banners > .gm-home-banner-item img {
+        height: 90px !important;
+    }
+    .gm-home-banners > .gm-home-banner-item,
+    .gm-home-banners > div.gm-home-banner-item {
+        min-height: 280px;
+    }
+}
+
+/* Unified hover for archive/news buttons + pagination — black → gold */
+#index_news .archive_link a:hover,
+.cb_content-blog_list .archive_link a:hover,
+.archive_link a:hover,
+.page_navi a:hover,
+.page_navi2 a:hover,
+.page-numbers:hover,
+.page-numbers.current,
+button.submit:hover,
+.btn:hover,
+input[type="submit"]:hover,
+.wp-block-button__link:hover,
+.custom_search_form input[type="submit"]:hover,
+#custom_search_form input[type="submit"]:hover,
+.custom_search_form button:hover {
+    background: var(--gm-gold) !important;
+    color: #000 !important;
+    border-color: var(--gm-gold) !important;
+    transform: none !important;
+}
+
+/* Default black background for primary CTA-like buttons */
+#index_news .archive_link a,
+.cb_content-blog_list .archive_link a {
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* CTA card — 4th card in the banner grid. Always visible text, hover = gold wash. */
+.gm-home-banners > .gm-home-cta-card,
+.gm-home-banners > .gm-home-banner-item.gm-home-cta-card {
+    background: #000 !important;
+    background-color: #000 !important;
+    border: 1px solid var(--gm-gold) !important;
+    box-shadow: var(--gm-shadow-soft) !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 300px;
+    transition: background .3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.gm-home-banners > .gm-home-cta-card:hover {
+    background: var(--gm-gold) !important;
+    background-color: var(--gm-gold) !important;
+    border-color: var(--gm-gold) !important;
+}
+
+.gm-home-banners .gm-home-cta-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 300px;
+    flex: 1 1 auto !important;
+    padding: 40px 24px !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-family: var(--gm-serif) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: .12em !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transition: color .3s ease;
+    text-align: center !important;
+    line-height: 1.6;
+    box-sizing: border-box;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.gm-home-banners .gm-home-cta-card:hover .gm-home-cta-btn {
+    color: #000 !important;
+}
+
+.gm-home-banners .gm-home-cta-label {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    font-family: var(--gm-serif) !important;
+    font-weight: 600 !important;
+    color: inherit !important;
+    letter-spacing: .12em !important;
+    line-height: 1.5;
+}
+
+.gm-home-banners .gm-home-cta-arrow {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 32px !important;
+    line-height: 1;
+    font-family: var(--gm-latin);
+    color: inherit !important;
+    margin-top: 4px;
+}
+
+@media (max-width: 720px) {
+    .gm-home-banners {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .gm-home-cta-btn {
+        font-size: 14px !important;
+        padding: 18px 24px !important;
+        letter-spacing: .1em !important;
+        width: 100%;
+    }
+}
+
+/* =========================================================================
+   Archive page cards — doctor-enriched view (JS injects photo + info)
+   ========================================================================= */
+
+/* Search results (#post_list2 on /clinic/?search=...) — grid like home */
+body:not(.single) #main_col > ol#post_list2,
+#main_col > ol#post_list2 {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 28px !important;
+    max-width: 1200px !important;
+    margin: 20px auto 40px !important;
+    padding: 0 20px !important;
+    list-style: none !important;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article,
+#main_col > ol#post_list2 > li.article {
+    background: #fff !important;
+    border: 1px solid var(--gm-hair) !important;
+    box-shadow: var(--gm-shadow-soft) !important;
+    display: flex !important;
+    flex-direction: column;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    overflow: hidden;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article > a {
+    display: flex !important;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article .info {
+    padding: 18px 20px 22px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article h2.title {
+    font-family: var(--gm-sans) !important;
+    font-size: 12px !important;
+    color: var(--gm-mute) !important;
+    margin: 0 !important;
+    letter-spacing: .08em !important;
+    line-height: 1.6 !important;
+    text-align: center;
+    padding: 0 !important;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article .excerpt {
+    display: none !important;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article ul.meta {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+    justify-content: center;
+}
+
+body:not(.single) #main_col > ol#post_list2 > li.article ul.meta li.cat {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-flex;
+}
+
+/* Enriched card styles (applies to both #post_list and #post_list2 search variants) */
+body.archive #post_list .article .image.gm-archive-doctor,
+body.blog #post_list .article .image.gm-archive-doctor,
+body.search #post_list .article .image.gm-archive-doctor,
+li.article .image.gm-archive-doctor {
+    aspect-ratio: 1 / 1 !important;
+    background: var(--gm-ivory-2);
+    padding: 24px !important;
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: auto !important;
+}
+
+body.archive #post_list .article .image.gm-archive-doctor img,
+body.blog #post_list .article .image.gm-archive-doctor img,
+body.search #post_list .article .image.gm-archive-doctor img,
+li.article .image.gm-archive-doctor img {
+    width: 75% !important;
+    height: 75% !important;
+    max-width: 75% !important;
+    max-height: 75% !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 3px solid var(--gm-gold);
+    box-shadow: 0 10px 28px rgba(10, 31, 61, .22);
+    position: relative !important;
+    inset: auto !important;
+}
+
+body.archive #post_list .article h2.title.gm-archive-enriched::before,
+body.blog #post_list .article h2.title.gm-archive-enriched::before,
+body.search #post_list .article h2.title.gm-archive-enriched::before,
+li.article h2.title.gm-archive-enriched::before {
+    content: none !important;
+    display: none !important;
+}
+
+li.article h2.title.gm-archive-enriched {
+    padding: 18px 20px 20px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--gm-serif) !important;
+    font-size: 16px !important;
+    color: var(--gm-navy) !important;
+    letter-spacing: .04em !important;
+}
+
+body.archive #post_list .article h2.title.gm-archive-enriched,
+body.blog #post_list .article h2.title.gm-archive-enriched,
+body.search #post_list .article h2.title.gm-archive-enriched {
+    padding: 18px 20px 22px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--gm-serif) !important;
+}
+
+body.archive #post_list .article h2.title.gm-archive-enriched::before,
+body.blog #post_list .article h2.title.gm-archive-enriched::before,
+body.search #post_list .article h2.title.gm-archive-enriched::before {
+    content: none !important;
+    display: none !important;
+}
+
+.gm-archive-doctor-name {
+    display: block;
+    font-family: var(--gm-serif) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--gm-navy) !important;
+    letter-spacing: .04em;
+    line-height: 1.4;
+}
+
+.gm-archive-grad {
+    font-size: 12px !important;
+    color: var(--gm-gold-2) !important;
+    letter-spacing: .02em;
+    font-weight: 500;
+}
+
+.gm-archive-specialty {
+    display: inline-block;
+    margin: 8px auto 4px !important;
+    padding: 4px 12px !important;
+    background: var(--gm-navy) !important;
+    color: #fff !important;
+    font-family: var(--gm-sans) !important;
+    font-size: 10px !important;
+    font-weight: 600;
+    letter-spacing: .08em;
+    border-radius: 2px;
+    align-self: center;
+}
+
+.gm-archive-clinic {
+    display: block;
+    font-family: var(--gm-sans) !important;
+    font-size: 11px !important;
+    color: var(--gm-mute) !important;
+    letter-spacing: .06em;
+    margin-top: 4px;
+}
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+
+@media (max-width: 900px) {
+    #header_slider,
+    #header_slider .item,
+    #header_slider .slick-slide,
+    #header_slider .slick-slide > div {
+        height: clamp(260px, 44vh, 360px) !important;
+        max-height: 360px !important;
+        min-height: 260px !important;
+    }
+
+    #header_slider .caption .headline {
+        font-size: 20px !important;
+        letter-spacing: .06em !important;
+    }
+
+    #header_slider .caption::before {
+        font-size: 10px;
+        letter-spacing: .32em;
+        margin-bottom: 10px !important;
+    }
+
+    #header_slider .caption .fimage img { max-width: 200px !important; width: 60% !important; }
+
+    .cb_content { padding: 50px 16px !important; }
+
+    .footer_nav_col {
+        border-left: none !important;
+        padding-left: 0 !important;
+        border-top: 1px solid rgba(184, 147, 90, .2);
+        padding-top: 20px !important;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    body { letter-spacing: .01em; }
+
+    #post_list .article .title,
+    .cb_content-blog_list .article .title {
+        padding: 18px 18px 8px !important;
+        font-size: 15px !important;
+    }
+
+    #post_list .article .meta,
+    .cb_content-blog_list .article .meta {
+        padding: 0 18px 18px !important;
+    }
+}
