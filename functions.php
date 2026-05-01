@@ -490,6 +490,117 @@ function gyosei_force_https_rewrite($html) {
         $html
     );
 
+    // 1g) Clinic detail pages: rebuild the WEB section.
+    //     Legacy post template hardcodes:
+    //       <div ...><P ...>WEB</P></div>
+    //       <section style="background-color: #F3F2E9; ...">
+    //         <a href=" {SITE_URL}"><img src="https://gyosei-medical.com/.../っs.png">  ← 404 on both hosts
+    //         <a href=" {URL}"><img src="...1.png">  ← cross-domain SNS icon, often href=" "
+    //         <a href=" {URL}"><img src="...2.png">
+    //         <a href=" {URL}"><img src="...3.png">
+    //       </section>
+    //     We extract whichever hrefs are non-empty and emit a clean styled block.
+    $sns_icon_set = [
+        'instagram' => [
+            'match' => '#(?:instagram\.com|instagr\.am)#i',
+            'label' => 'Instagram',
+            'svg'   => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.37 1.06.42 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.42 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.37-2.23.42-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.37-1.06-.42-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.37 2.23-.42C8.42 2.2 8.8 2.2 12 2.2zm0 1.98c-3.15 0-3.5 0-4.73.07-1.07.05-1.65.23-2.04.38-.5.2-.87.43-1.25.82-.39.38-.62.75-.82 1.25-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.58-.07 4.73s0 3.5.07 4.73c.05 1.07.23 1.65.38 2.04.2.5.43.87.82 1.25.38.39.75.62 1.25.82.39.15.97.33 2.04.38 1.24.06 1.58.07 4.73.07s3.5 0 4.73-.07c1.07-.05 1.65-.23 2.04-.38.5-.2.87-.43 1.25-.82.39-.38.62-.75.82-1.25.15-.39.33-.97.38-2.04.06-1.24.07-1.58.07-4.73s0-3.5-.07-4.73c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.82-1.25 3.4 3.4 0 0 0-1.25-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.58-.07-4.73-.07zm0 3.37a5.02 5.02 0 1 1 0 10.04 5.02 5.02 0 0 1 0-10.04zm0 8.28a3.26 3.26 0 1 0 0-6.52 3.26 3.26 0 0 0 0 6.52zm6.4-8.48a1.17 1.17 0 1 1-2.34 0 1.17 1.17 0 0 1 2.34 0z"/></svg>',
+        ],
+        'facebook' => [
+            'match' => '#facebook\.com#i',
+            'label' => 'Facebook',
+            'svg'   => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-8.2h2.76l.41-3.2H13.5V7.55c0-.92.26-1.55 1.58-1.55h1.69V3.14C16.48 3.1 15.48 3 14.33 3 11.9 3 10.24 4.48 10.24 7.2v2.4H7.5v3.2h2.74V21h3.26z"/></svg>',
+        ],
+        'x' => [
+            'match' => '#(?:twitter\.com|x\.com)#i',
+            'label' => 'X',
+            'svg'   => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21l-6.563 7.5L22 22h-6.797l-4.71-6.18L4.99 22H2.232l7.027-8.026L2 2h6.953l4.243 5.62L18.244 2zm-1.19 18.4h1.51L7.06 3.49H5.44l11.614 16.91z"/></svg>',
+        ],
+        'line' => [
+            'match' => '#(?:line\.me|lin\.ee)#i',
+            'label' => 'LINE',
+            'svg'   => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M19.365 9.89c.41 0 .75.341.75.762a.755.755 0 0 1-.75.761h-2.087v1.337h2.087c.41 0 .75.34.75.76a.755.755 0 0 1-.75.762h-2.84a.755.755 0 0 1-.75-.762V8.027c0-.42.337-.762.75-.762h2.84c.41 0 .75.341.75.762 0 .42-.337.761-.75.761h-2.087v1.337h2.087zm-4.144 3.62a.755.755 0 0 1-.75.761.74.74 0 0 1-.6-.299l-2.91-3.96v3.498a.755.755 0 0 1-.75.761.755.755 0 0 1-.75-.761V8.027c0-.327.21-.617.514-.72a.7.7 0 0 1 .234-.04c.226 0 .445.114.583.3l2.93 3.972V8.027c0-.42.336-.762.75-.762.41 0 .75.341.75.762v5.483zm-7.119 0a.755.755 0 0 1-.75.761.755.755 0 0 1-.75-.761V8.027c0-.42.337-.762.75-.762.413 0 .75.341.75.762v5.483zm-2.65.761H2.612a.756.756 0 0 1-.751-.761V8.027c0-.42.337-.762.75-.762.414 0 .75.341.75.762v4.722h2.091c.41 0 .75.34.75.761 0 .42-.337.762-.75.762zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.302.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>',
+        ],
+    ];
+    $clinic_web_pattern =
+        '#<div[^>]*style="[^"]*margin:\s*25px[^"]*"[^>]*>\s*' .
+        '<P[^>]*>\s*WEB\s*</P>\s*</div>\s*' .
+        '<section[^>]*style="[^"]*background-color:\s*#F3F2E9[^"]*"[^>]*>(.*?)</section>#us';
+
+    $html = preg_replace_callback(
+        $clinic_web_pattern,
+        function ($m) use ($sns_icon_set) {
+            $body = $m[1];
+            $site_url = '';
+            // Main site CTA — first <a> wrapping an img with width="60%" or っs.png filename.
+            if (preg_match('#<a\s+href="\s*([^"\s][^"]*?)\s*"[^>]*>\s*<img[^>]*(?:width="60%"|っs\.png)[^>]*>#u', $body, $sm)) {
+                $site_url = trim($sm[1]);
+            }
+            // SNS row — collect every <a href="..."><img src="..." width="50px" ...></a>
+            // Only keep entries with non-empty href.
+            preg_match_all(
+                '#<a\s+href="\s*([^"]*?)\s*"[^>]*>\s*<img[^>]*width="50px"[^>]*>\s*</a>#u',
+                $body,
+                $sns_matches,
+                PREG_SET_ORDER
+            );
+            $sns_html = '';
+            foreach ($sns_matches as $sm2) {
+                $url = trim($sm2[1]);
+                if ($url === '' || $url === '#') continue;
+                // Detect platform from URL
+                $svg = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h7v2H7v10h10v-5h2v7H5V5z"/></svg>';
+                $label = 'リンク';
+                foreach ($sns_icon_set as $info) {
+                    if (preg_match($info['match'], $url)) {
+                        $svg   = $info['svg'];
+                        $label = $info['label'];
+                        break;
+                    }
+                }
+                $sns_html .= '<a class="gd-clinic-web-sns-item" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener" aria-label="' . htmlspecialchars($label, ENT_QUOTES) . '">' . $svg . '</a>';
+            }
+            $out  = '<div class="gd-clinic-web">';
+            $out .= '<h3 class="gd-clinic-web-label">WEB</h3>';
+            if ($site_url !== '' && $site_url !== '#') {
+                $out .= '<a class="gd-clinic-web-cta" href="' . htmlspecialchars($site_url, ENT_QUOTES) . '" target="_blank" rel="noopener">';
+                $out .= '<span class="gd-clinic-web-cta-text">公式サイトを見る</span>';
+                $out .= '<span class="gd-clinic-web-cta-arrow" aria-hidden="true">&rsaquo;</span>';
+                $out .= '</a>';
+            } else {
+                $out .= '<p class="gd-clinic-web-empty">公式サイト情報は準備中です。</p>';
+            }
+            if ($sns_html !== '') {
+                $out .= '<div class="gd-clinic-web-sns">' . $sns_html . '</div>';
+            }
+            $out .= '</div>';
+            return $out;
+        },
+        $html
+    );
+
+    // 1h) Replace deprecated Google Maps `pb=` embed iframes with the legacy
+    //     parameterless `?q=lat,lng&output=embed` format. The pb= URLs return
+    //     404 + X-Frame-Options:SAMEORIGIN now (Google deprecated them), so the
+    //     ACCESS section appears as empty space. We extract !2d{lon} and
+    //     !3d{lat} from the original src to preserve the pin location.
+    $html = preg_replace_callback(
+        '#<iframe([^>]*?)\s+src="https://www\.google\.com/maps/embed\?pb=([^"]+)"([^>]*)>(\s*</iframe>)#u',
+        function ($m) {
+            $before = $m[1];
+            $pb     = $m[2];
+            $after  = $m[3];
+            $end    = $m[4];
+            $lat = $lon = null;
+            if (preg_match('#!2d(-?\d+(?:\.\d+)?)#', $pb, $mlon)) $lon = $mlon[1];
+            if (preg_match('#!3d(-?\d+(?:\.\d+)?)#', $pb, $mlat)) $lat = $mlat[1];
+            if ($lat === null || $lon === null) return $m[0];
+            $new_src = 'https://www.google.com/maps?q=' . $lat . ',' . $lon . '&z=16&output=embed';
+            return '<iframe' . $before . ' src="' . $new_src . '"' . $after . '>' . $end;
+        },
+        $html
+    );
+
     // 2) On the homepage, restructure the bottom banner strip:
     //    - add a .gm-home-banners class hook to the clearfix container so CSS grids it
     //    - inject a single CTA button after the banner strip

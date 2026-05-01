@@ -2930,11 +2930,31 @@ li.article .title.gm-archive-enriched {
    ========================================================================= */
 
 /* ---------- Hero catchphrase ---------- */
-html body #header_slider .item1 .caption,
-html body #header_slider .caption.pc,
-html body #header_slider .caption.sp {
+/* Parent theme renders BOTH .caption.pc and .caption.sp into the DOM with
+   the same catchphrase text. We must show exactly one per viewport — the
+   previous override forced both visible everywhere, which produced a
+   visible "double" of "暁星OB". */
+html body #header_slider .item1 .caption {
     opacity: 1 !important;
     visibility: visible !important;
+}
+html body #header_slider .caption.pc {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+html body #header_slider .caption.sp {
+    display: none !important;
+}
+@media screen and (max-width: 1024px) {
+    html body #header_slider .caption.pc {
+        display: none !important;
+    }
+    html body #header_slider .caption.sp {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
 }
 
 html body #header_slider .caption .catchphrase.gd-hero-catch {
@@ -3110,4 +3130,155 @@ html body #header_slider .caption .headline {
         margin: 16px auto 0 !important;
         justify-content: center !important;
     }
+}
+
+/* =========================================================================
+   Clinic detail — WEB section (rebuilt by gyosei_force_https_rewrite §1g)
+   ========================================================================= */
+.gd-clinic-web {
+    margin: 28px 25px;
+    padding: 36px 28px 32px;
+    background: var(--gm-ivory, #FAF7F1);
+    border-left: 4px solid var(--gm-gold, #B8935A);
+    border-right: 1px solid rgba(184, 147, 90, 0.25);
+    box-shadow: 0 8px 24px rgba(10, 31, 61, 0.06);
+    text-align: center;
+    color: var(--gm-navy, #0A1F3D);
+}
+
+.gd-clinic-web-label {
+    font-family: "Cormorant Garamond", "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--gm-gold, #B8935A);
+    margin: 0 0 22px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.gd-clinic-web-label::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--gm-gold, #B8935A);
+    margin: 12px auto 0;
+}
+
+.gd-clinic-web-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 36px;
+    background: var(--gm-navy, #0A1F3D);
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: "Shippori Mincho B1", "Noto Serif JP", serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px rgba(10, 31, 61, 0.18);
+}
+
+.gd-clinic-web-cta:hover,
+.gd-clinic-web-cta:focus {
+    background: var(--gm-gold, #B8935A);
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(184, 147, 90, 0.28);
+}
+
+.gd-clinic-web-cta-arrow {
+    font-size: 20px;
+    line-height: 1;
+    font-family: "Cormorant Garamond", serif;
+}
+
+.gd-clinic-web-empty {
+    margin: 0;
+    font-family: "Shippori Mincho B1", "Noto Serif JP", serif;
+    color: rgba(10, 31, 61, 0.6);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+.gd-clinic-web-sns {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.gd-clinic-web-sns-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(184, 147, 90, 0.45);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--gm-navy, #0A1F3D) !important;
+    text-decoration: none !important;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.gd-clinic-web-sns-item:hover,
+.gd-clinic-web-sns-item:focus {
+    background: var(--gm-navy, #0A1F3D);
+    border-color: var(--gm-navy, #0A1F3D);
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+.gd-clinic-web-sns-item svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    display: block;
+}
+
+@media screen and (max-width: 720px) {
+    .gd-clinic-web {
+        margin: 24px 16px;
+        padding: 28px 20px 24px;
+    }
+    .gd-clinic-web-cta {
+        padding: 12px 26px;
+        font-size: 15px;
+    }
+}
+
+/* =========================================================================
+   Clinic detail — ACCESS map iframe (rewritten by §1h to legacy embed format)
+   The parent template wraps the iframe in <div class="sp"> and <div class="pc">,
+   each followed by a sibling. We make those wrappers render the iframe at
+   the correct size on the right viewport.
+   ========================================================================= */
+#article center > .sp,
+#article center > .pc {
+    box-sizing: border-box;
+}
+
+#article center > .sp iframe,
+#article center > .pc iframe {
+    display: block !important;
+    width: 100% !important;
+    max-width: 720px !important;
+    height: 380px !important;
+    border: 0 !important;
+    margin: 0 auto !important;
+}
+
+@media screen and (min-width: 1025px) {
+    #article center > .sp { display: none !important; }
+}
+
+@media screen and (max-width: 1024px) {
+    #article center > .pc { display: none !important; }
+    #article center > .sp iframe { height: 320px !important; }
 }
