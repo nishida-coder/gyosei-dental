@@ -2967,6 +2967,14 @@ html body #header_slider .caption .catchphrase.gd-hero-catch {
     padding: 0 !important;
     margin: 0 !important;
     opacity: 1 !important;
+    /* Center the inline-flex .gd-hero-catch-box inside the outer dark caption frame.
+       Without this the inner ivory box drifts left of the dark frame's center. */
+    text-align: center !important;
+}
+
+html body #header_slider .caption.pc,
+html body #header_slider .caption.sp {
+    text-align: center !important;
 }
 
 html body #header_slider .catchphrase.gd-hero-catch .gd-hero-catch-box {
