@@ -536,7 +536,11 @@ body.header_fix #header {
 
 /* legacy .fimage styling no longer applied */
 
-/* Caption sits on a solid dark plate (no text-shadow, no blur) — calm medical tone */
+/* Caption sits on a solid dark plate (no text-shadow, no blur) — calm medical tone.
+   Parent theme uses {position:absolute; left:0; right:0; margin:auto; width:100%} for
+   centering. When we set max-width + width:auto the margin:auto centering becomes
+   unreliable across browsers, so we switch to explicit transform-based centering on
+   both axes (parent already does the vertical -50% translate, we add horizontal). */
 #header_slider .caption {
     background: rgba(10, 20, 35, .72) !important;
     backdrop-filter: blur(2px);
@@ -544,7 +548,14 @@ body.header_fix #header {
     padding: 32px 48px !important;
     border: 1px solid rgba(184, 147, 90, .45);
     max-width: 760px !important;
-    width: auto !important;
+    width: max-content !important;
+    left: 50% !important;
+    right: auto !important;
+    margin: 0 !important;
+    -webkit-transform: translate3d(-50%, -50%, 0) !important;
+    -moz-transform: translate3d(-50%, -50%, 0) !important;
+    -ms-transform: translate3d(-50%, -50%, 0) !important;
+    transform: translate3d(-50%, -50%, 0) !important;
 }
 
 #header_slider .caption .headline,
@@ -580,7 +591,9 @@ body.header_fix #header {
     letter-spacing: .04em !important;
     font-weight: 400 !important;
     opacity: 1 !important;
-    max-width: 640px;
+    /* Span full caption width so inline-flex .gd-hero-catch-box can center via text-align */
+    max-width: none !important;
+    width: auto !important;
     margin: 0 auto !important;
     text-shadow: none !important;
     filter: none !important;
@@ -2965,10 +2978,15 @@ html body #header_slider .caption .catchphrase.gd-hero-catch {
     letter-spacing: 0 !important;
     text-shadow: none !important;
     padding: 0 !important;
-    margin: 0 !important;
+    /* Span full width of .caption (margin auto + width auto + max-width none) so the
+       inline-flex inner ivory box can center via text-align. The previous override set
+       margin:0 which left the <p> stuck to the left of .caption, dragging the ivory
+       box off-center. */
+    margin: 0 auto !important;
+    max-width: none !important;
+    width: auto !important;
+    display: block !important;
     opacity: 1 !important;
-    /* Center the inline-flex .gd-hero-catch-box inside the outer dark caption frame.
-       Without this the inner ivory box drifts left of the dark frame's center. */
     text-align: center !important;
 }
 
