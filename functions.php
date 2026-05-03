@@ -56,7 +56,10 @@ define('GYOSEI_SITE_NAME', 'GYOSEI DENTAL');
 define('GYOSEI_SITE_TAGLINE', '暁星卒業生OB歯科医師の歯科医院・クリニック開業情報サイト');
 define('GYOSEI_SITE_DESC', '暁星学園を卒業され歯科医院およびクリニックを開業されているOB歯科医師の情報ポータル。診療科目、エリア、卒業年代から信頼できる歯科医療機関を探せる暁星OB歯科医師ネットワーク。');
 define('GYOSEI_OGP_IMAGE', 'https://gyosei-dental.com/wp-content/uploads/2024/06/logo.png');
-define('GYOSEI_CONTACT_EMAIL', 'info@gyosei-dental.com');
+// Unified contact email across the GYOSEI portal network. info@gyosei-dental.com
+// is no longer used; all dental enquiries route to info@gyosei-medical.com so the
+// medical-side admin doesn't have to monitor a second mailbox.
+define('GYOSEI_CONTACT_EMAIL', 'info@gyosei-medical.com');
 
 /**
  * Strip empty meta description tags output by the parent theme,
