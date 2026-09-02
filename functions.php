@@ -695,26 +695,6 @@ function gyosei_force_https_rewrite($html) {
         );
     }
 
-    // 3) Homepage: inject "About GYOSEI DENTAL" section before clinic list
-    if (preg_match('/class="[^"]*\bhome\b/', $html) && strpos($html, 'gd-about-section') === false) {
-        $about = '<section class="gd-about-section"><div class="gd-about-inner">'
-            . '<p class="gd-about-eyebrow">ABOUT</p>'
-            . '<h2 class="gd-about-heading">暁星OB歯科医師ネットワーク</h2>'
-            . '<p class="gd-about-lead">暁星学園卒業生が開業する歯科クリニックの情報を集約した、OB歯科医師のためのポータルサイトです。</p>'
-            . '<div class="gd-about-cards">'
-            . '<div class="gd-about-card"><span class="gd-about-card-num">01</span>'
-            . '<h3 class="gd-about-card-title">信頼のOBネットワーク</h3>'
-            . '<p class="gd-about-card-text">暁星の同窓の絆で結ばれた歯科医師が、各地で質の高い歯科医療を提供しています。</p></div>'
-            . '<div class="gd-about-card"><span class="gd-about-card-num">02</span>'
-            . '<h3 class="gd-about-card-title">条件から探せる</h3>'
-            . '<p class="gd-about-card-text">診療科目、エリア、卒業年代など、多角的な条件からOB歯科医師のクリニックを検索できます。</p></div>'
-            . '<div class="gd-about-card"><span class="gd-about-card-num">03</span>'
-            . '<h3 class="gd-about-card-title">クリニック詳細情報</h3>'
-            . '<p class="gd-about-card-text">各クリニックの診療内容、アクセス、SNSまで、必要な情報をまとめてご覧いただけます。</p></div>'
-            . '</div></div></section>';
-        $html = preg_replace('/<div id="cb_0"/', $about . '<div id="cb_0"', $html, 1);
-    }
-
     return $html;
 }
 
