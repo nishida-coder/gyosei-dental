@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GDENTAL_CHILD_VERSION', '1.0.0');
+define('GDENTAL_CHILD_VERSION', '1.1.0');
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
@@ -623,6 +623,16 @@ function gyosei_force_https_rewrite($html) {
         $html = preg_replace(
             '#(<div id="cb_1"[^>]*cb_content-wysiwyg[^>]*>\s*<div class="inner">\s*<div class=")(\s*clearfix)(")#u',
             '$1$2 gm-home-banners$3',
+            $html
+        );
+
+        // Inject LINK heading above the banner grid (matches GYOSEI MEDICAL)
+        $link_heading = '<div class="gm-home-link-heading">'
+            . '<span class="gm-home-link-heading-label">LINK</span>'
+            . '<span class="gm-home-link-heading-sub">関連サイト</span></div>';
+        $html = str_replace(
+            '<div class=" clearfix gm-home-banners">',
+            $link_heading . '<div class=" clearfix gm-home-banners">',
             $html
         );
 

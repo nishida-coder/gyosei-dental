@@ -714,15 +714,15 @@ body.header_fix #header {
 #index_news .archive_link a,
 .cb_content-blog_list .archive_link a {
     display: inline-block !important;
-    background: #000 !important;
-    color: #fff !important;
-    font-family: var(--gm-sans) !important;
-    font-size: 12px !important;
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
+    font-family: var(--gm-serif) !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
-    letter-spacing: .16em !important;
+    letter-spacing: .08em !important;
     text-transform: none !important;
-    padding: 14px 36px !important;
-    border: none !important;
+    padding: 12px 36px !important;
+    border: 1px solid var(--gm-gold) !important;
     border-radius: 0 !important;
     line-height: 1.5 !important;
     text-align: center !important;
@@ -1411,7 +1411,14 @@ li.cat .cat-category3,
    Global buttons
    ========================================================================= */
 
-.archive_link,
+.archive_link {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: block;
+}
+
 .archive_link a,
 button.submit,
 .btn,
@@ -1432,7 +1439,6 @@ input[type="submit"],
     display: inline-block;
 }
 
-.archive_link:hover,
 .archive_link a:hover,
 button.submit:hover,
 .btn:hover,
@@ -3567,5 +3573,53 @@ button.submit:hover,
     border: none !important;
     background: var(--gm-gold) !important;
     color: #000 !important;
+}
+
+/* =========================================================================
+   LINK section heading (matches GYOSEI MEDICAL)
+   ========================================================================= */
+
+.gm-home-link-heading {
+    text-align: center;
+    padding: 0 20px 12px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.gm-home-link-heading-label {
+    display: block;
+    font-family: var(--gm-latin), var(--gm-serif);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .3em;
+    color: var(--gm-navy);
+    margin: 0 0 4px;
+    line-height: 1;
+}
+
+.gm-home-link-heading-label::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--gm-gold);
+    margin: 10px auto 0;
+}
+
+.gm-home-link-heading-sub {
+    display: block;
+    font-family: var(--gm-sans);
+    font-size: 11px;
+    letter-spacing: .24em;
+    color: var(--gm-mute);
+    margin: 6px 0 0;
+}
+
+/* #cb_1 LINK section wrapper — ivory-2 background strip */
+#cb_1.cb_content.cb_content-wysiwyg {
+    background: var(--gm-ivory-2) !important;
+    padding: 28px 20px 24px !important;
+    border-top: 1px solid var(--gm-hair);
+    margin: 16px 0 0;
 }
 
