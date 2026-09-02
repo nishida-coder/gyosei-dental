@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GDENTAL_CHILD_VERSION', '1.2.0');
+define('GDENTAL_CHILD_VERSION', '1.2.1');
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
@@ -465,19 +465,14 @@ function gyosei_force_https_rewrite($html) {
         $html
     );
 
-    // 1e) Hero: MEDICAL-style clean text on glass card
-    //     Replace headline with dental tagline
-    $html = preg_replace(
-        '#(<h2 class="headline[^"]*"[^>]*>).*?(</h2>)#us',
-        '$1暁星からつながる、<br>信頼の歯科ネットワーク$2',
-        $html
-    );
-
-    //     Replace catchphrase with clean descriptive text (no ivory box)
+    // 1e) Hero: MEDICAL-style clean text on glass card.
+    //     The parent theme comments out <h2.headline> in DENTAL's DB entry,
+    //     so we inject the headline element alongside the catchphrase.
     $html = preg_replace_callback(
         '#<p class="catchphrase rich_font[^"]*"[^>]*>.*?</p>#us',
         function ($m) {
-            return '<p class="catchphrase rich_font">'
+            return '<h2 class="headline rich_font">暁星からつながる、<br>信頼の歯科ネットワーク</h2>'
+                . '<p class="catchphrase rich_font">'
                 . '暁星学園OBの歯科医師による<br>'
                 . '診療情報を発信するポータルサイト。<br>'
                 . '信頼できる同窓歯科医師の情報を集約し、<br>'
@@ -691,7 +686,7 @@ function gyosei_force_https_rewrite($html) {
 
             $html = preg_replace_callback(
                 $pattern,
-                function ($m) use ($title, $sub) {
+                function ($m) use ($title) {
                     $href = $m[1];
                     $src  = $m[2];
                     $is_external = (strpos($href, 'gyosei-dental.com') === false);
@@ -700,10 +695,6 @@ function gyosei_force_https_rewrite($html) {
                         '<a href="' . htmlspecialchars($href, ENT_QUOTES) . '"' . $target_attr . '>' .
                         '<img src="' . htmlspecialchars($src, ENT_QUOTES) . '" alt="' . htmlspecialchars($title, ENT_QUOTES) . '">' .
                         '</a>' .
-                        '<div class="gm-banner-label">' .
-                        '<span class="gm-banner-title">' . htmlspecialchars($title, ENT_QUOTES) . '</span>' .
-                        '<span class="gm-banner-sub">' . htmlspecialchars($sub, ENT_QUOTES) . '</span>' .
-                        '</div>' .
                         '</div>';
                 },
                 $html

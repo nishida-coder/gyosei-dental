@@ -2107,7 +2107,16 @@ a[href=""]:hover {
     border: 1px solid rgba(255, 255, 255, .45) !important;
     border-radius: 2px !important;
     transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
-    white-space: nowrap;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+}
+
+.footer_nav_cols,
+.footer_nav_cols.clearfix,
+.footer_nav_col {
+    overflow: visible !important;
 }
 
 .footer_nav_col ul li a:hover {
