@@ -473,7 +473,7 @@ body.header_fix #header {
 #header_slider .item .caption,
 #header_slider .slick-slide .caption {
     position: absolute !important;
-    top: 42% !important;
+    top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 5 !important;
@@ -552,6 +552,8 @@ body.header_fix #header {
     left: 50% !important;
     right: auto !important;
     margin: 0 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, .3);
     -webkit-transform: translate3d(-50%, -50%, 0) !important;
     -moz-transform: translate3d(-50%, -50%, 0) !important;
     -ms-transform: translate3d(-50%, -50%, 0) !important;
@@ -3043,7 +3045,7 @@ html body #header_slider .catchphrase.gd-hero-catch .gd-hero-catch-x {
 
 html body #header_slider .item1 .caption .headline,
 html body #header_slider .caption .headline {
-    display: none !important;
+    display: block !important;
 }
 
 @media screen and (max-width: 1024px) {
@@ -3581,20 +3583,19 @@ button.submit:hover,
 
 .gm-home-link-heading {
     text-align: center;
-    padding: 0 20px 12px;
-    max-width: 900px;
+    padding: 0 20px 24px;
     margin: 0 auto;
+    max-width: 900px;
 }
 
 .gm-home-link-heading-label {
     display: block;
     font-family: var(--gm-latin), var(--gm-serif);
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
-    letter-spacing: .3em;
+    letter-spacing: .32em;
     color: var(--gm-navy);
-    margin: 0 0 4px;
-    line-height: 1;
+    line-height: 1.2;
 }
 
 .gm-home-link-heading-label::after {
@@ -3603,7 +3604,7 @@ button.submit:hover,
     width: 36px;
     height: 1px;
     background: var(--gm-gold);
-    margin: 10px auto 0;
+    margin: 12px auto 10px;
 }
 
 .gm-home-link-heading-sub {
@@ -3612,14 +3613,61 @@ button.submit:hover,
     font-size: 11px;
     letter-spacing: .24em;
     color: var(--gm-mute);
-    margin: 6px 0 0;
 }
 
 /* #cb_1 LINK section wrapper — ivory-2 background strip */
 #cb_1.cb_content.cb_content-wysiwyg {
     background: var(--gm-ivory-2) !important;
-    padding: 28px 20px 24px !important;
-    border-top: 1px solid var(--gm-hair);
-    margin: 16px 0 0;
+    padding: 36px 20px 28px !important;
+    border-top: 1px solid var(--gm-hair) !important;
+    border-bottom: 1px solid var(--gm-hair) !important;
+    margin: 20px 0 0 !important;
+}
+
+/* Collapse LINK-to-footer gap on homepage */
+body.home #main_contents,
+body.home #main_col {
+    padding-bottom: 0 !important;
+}
+
+body.home #cb_1,
+body.home #cb_1.cb_content-wysiwyg {
+    margin-bottom: 0 !important;
+}
+
+body.home .gm-home-banners {
+    margin-bottom: 0 !important;
+}
+
+/* Banner card labels (MEDICAL-matching) */
+.gm-banner-label {
+    text-align: center;
+    padding: 8px 4px 0;
+}
+
+.gm-banner-title {
+    display: block;
+    font-family: var(--gm-latin), var(--gm-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    color: var(--gm-navy);
+    line-height: 1.3;
+}
+
+.gm-banner-sub {
+    display: block;
+    font-family: var(--gm-sans);
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: var(--gm-mute);
+    margin-top: 2px;
+}
+
+/* Footer nav headline — override inline background styles */
+.footer_nav_col .headline[style],
+.footer_nav_col > .headline[style] {
+    background: var(--gm-navy) !important;
+    color: var(--gm-ivory) !important;
 }
 

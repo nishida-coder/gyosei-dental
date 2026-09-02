@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GDENTAL_CHILD_VERSION', '1.1.0');
+define('GDENTAL_CHILD_VERSION', '1.2.0');
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
@@ -465,20 +465,44 @@ function gyosei_force_https_rewrite($html) {
         $html
     );
 
-    // 1e) Hero catchphrase: parent theme hardcodes color:#8fa5a2 (nearly invisible)
-    //     and the inline span has a broken `opacity:0.2` declaration.
-    //     Rebuild the <p class="catchphrase"> with a clean class so CSS can fully restyle.
+    // 1e) Hero: MEDICAL-style clean text on glass card
+    //     Replace headline with dental tagline
+    $html = preg_replace(
+        '#(<h2 class="headline[^"]*"[^>]*>).*?(</h2>)#us',
+        '$1暁星からつながる、<br>信頼の歯科ネットワーク$2',
+        $html
+    );
+
+    //     Replace catchphrase with clean descriptive text (no ivory box)
     $html = preg_replace_callback(
-        '#<p class="catchphrase rich_font"[^>]*>.*?</p>#us',
+        '#<p class="catchphrase rich_font[^"]*"[^>]*>.*?</p>#us',
         function ($m) {
-            // Was previously the same wording on both PC/SP captions.
-            return '<p class="catchphrase rich_font gd-hero-catch">'
-                . '<span class="gd-hero-catch-box">'
-                . '<span class="gd-hero-catch-line1">暁星OB</span>'
-                . '<span class="gd-hero-catch-x">×</span>'
-                . '<span class="gd-hero-catch-line2">歯科開業医 情報ポータル</span>'
-                . '</span></p>';
+            return '<p class="catchphrase rich_font">'
+                . '暁星学園OBの歯科医師による<br>'
+                . '診療情報を発信するポータルサイト。<br>'
+                . '信頼できる同窓歯科医師の情報を集約し、<br>'
+                . '患者と歯科医師が安心してつながる場を目指します。'
+                . '</p>';
         },
+        $html
+    );
+
+    //     Fix header logo linking to gyosei-medical.com instead of dental
+    $html = preg_replace(
+        '~(<a\s+href=")https://gyosei-medical\.com/(">\s*<img[^>]+1920)~',
+        '$1https://gyosei-dental.com/$2',
+        $html
+    );
+
+    //     Force archive_link container to be invisible (nuclear inline style)
+    $html = str_replace(
+        'class="archive_link" style="margin: 20px;"',
+        'class="archive_link" style="margin:20px 0;background:transparent!important;border:none!important;padding:8px 0!important;box-shadow:none!important;text-align:center;"',
+        $html
+    );
+    $html = preg_replace(
+        '#<div class="archive_link"(?!\s+style)#',
+        '<div class="archive_link" style="background:transparent!important;border:none!important;box-shadow:none!important;padding:8px 0!important;text-align:center;"',
         $html
     );
 
@@ -667,16 +691,19 @@ function gyosei_force_https_rewrite($html) {
 
             $html = preg_replace_callback(
                 $pattern,
-                function ($m) use ($title) {
+                function ($m) use ($title, $sub) {
                     $href = $m[1];
                     $src  = $m[2];
                     $is_external = (strpos($href, 'gyosei-dental.com') === false);
                     $target_attr = $is_external ? ' target="_blank" rel="noopener"' : '';
-                    // Banner image already contains brand name graphic — no extra label needed.
                     return '<div class="gm-home-banner-item">' .
                         '<a href="' . htmlspecialchars($href, ENT_QUOTES) . '"' . $target_attr . '>' .
                         '<img src="' . htmlspecialchars($src, ENT_QUOTES) . '" alt="' . htmlspecialchars($title, ENT_QUOTES) . '">' .
                         '</a>' .
+                        '<div class="gm-banner-label">' .
+                        '<span class="gm-banner-title">' . htmlspecialchars($title, ENT_QUOTES) . '</span>' .
+                        '<span class="gm-banner-sub">' . htmlspecialchars($sub, ENT_QUOTES) . '</span>' .
+                        '</div>' .
                         '</div>';
                 },
                 $html
