@@ -1957,11 +1957,17 @@ a[href=""]:hover {
 
 #footer,
 #footer_nav,
+/* =========================================================================
+   DENTAL footer — ceramic white (differentiated from MEDICAL's teal)
+   Clean porcelain-like warmth, navy text, gold accents
+   ========================================================================= */
+
+#footer,
 #footer_contents,
 #footer .inner {
-    background: var(--gm-tiffany) !important;
-    background-color: var(--gm-tiffany) !important;
-    color: #fff !important;
+    background: #F0EDE8 !important;
+    background-color: #F0EDE8 !important;
+    color: var(--gm-navy) !important;
 }
 
 #footer {
@@ -1981,21 +1987,21 @@ a[href=""]:hover {
 }
 
 #footer_nav {
-    padding: 70px 20px 40px !important;
-    background: var(--gm-tiffany) !important;
+    padding: 40px 20px 32px !important;
+    background: #F0EDE8 !important;
 }
 
 #footer_contents {
     padding: 0 20px !important;
-    background: var(--gm-tiffany) !important;
-    border-top: 1px solid rgba(255, 255, 255, .25);
+    background: #EAE6E0 !important;
+    border-top: 1px solid rgba(10, 31, 61, .1);
 }
 
 #footer_contents .inner {
     background: transparent !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    padding: 50px 0 0 !important;
+    padding: 36px 0 0 !important;
     text-align: center;
 }
 
@@ -2010,10 +2016,10 @@ a[href=""]:hover {
 #footer_logo *,
 #footer_nav *,
 #footer_bottom_menu * {
-    color: #fff !important;
+    color: var(--gm-navy) !important;
 }
 
-#footer a { transition: color .25s ease; }
+#footer a { transition: color .25s ease, opacity .25s ease; }
 #footer a:hover { color: var(--gm-gold) !important; }
 
 #footer_logo .logo,
@@ -2023,7 +2029,6 @@ a[href=""]:hover {
 }
 
 #footer_nav {
-    padding: 20px !important;
     max-width: 1200px;
     margin: 0 auto !important;
 }
@@ -2052,14 +2057,14 @@ a[href=""]:hover {
 .footer_nav_col .headline,
 .footer_nav_col > .headline[style] {
     background: transparent !important;
-    color: #fff !important;
+    color: var(--gm-navy) !important;
     font-family: var(--gm-serif) !important;
     font-size: 16px !important;
     font-weight: 600 !important;
     letter-spacing: .14em !important;
     padding: 0 0 14px 0 !important;
     margin: 0 0 20px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, .35) !important;
+    border-bottom: 1px solid rgba(10, 31, 61, .15) !important;
     position: relative;
     text-align: left !important;
 }
@@ -2102,50 +2107,64 @@ a[href=""]:hover {
     font-weight: 500 !important;
     letter-spacing: .04em !important;
     line-height: 1.5 !important;
-    color: #fff !important;
-    background: rgba(255, 255, 255, .1) !important;
-    border: 1px solid rgba(255, 255, 255, .45) !important;
+    color: var(--gm-navy) !important;
+    background: #fff !important;
+    border: 1px solid rgba(10, 31, 61, .18) !important;
     border-radius: 2px !important;
     transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
     white-space: normal !important;
     overflow: visible !important;
     text-overflow: clip !important;
     max-width: none !important;
+    width: auto !important;
+    box-sizing: border-box !important;
 }
 
 .footer_nav_cols,
 .footer_nav_cols.clearfix,
-.footer_nav_col {
+.footer_nav_col,
+.footer_nav_col ul,
+.footer_nav_col ul li {
     overflow: visible !important;
 }
 
+.footer_nav_cols[style],
+.footer_nav_cols.clearfix[style] {
+    margin: 0 !important;
+}
+
+.footer_nav_col ul li {
+    width: auto !important;
+    max-width: 100% !important;
+}
+
 .footer_nav_col ul li a:hover {
-    background: #fff !important;
-    color: var(--gm-tiffany-deep) !important;
-    border-color: #fff !important;
+    background: var(--gm-gold) !important;
+    color: #fff !important;
+    border-color: var(--gm-gold) !important;
     transform: translateY(-1px);
 }
 
 .footer_nav_category ul li a {
-    background: rgba(255, 255, 255, .12) !important;
-    border-color: rgba(255, 255, 255, .5) !important;
+    background: #fff !important;
+    border-color: rgba(10, 31, 61, .2) !important;
 }
 
 .footer_nav_category2 ul li a {
-    background: rgba(255, 255, 255, .06) !important;
-    border-color: rgba(255, 255, 255, .45) !important;
-    color: #fff !important;
+    background: rgba(255, 255, 255, .7) !important;
+    border-color: rgba(10, 31, 61, .15) !important;
+    color: var(--gm-navy) !important;
 }
 
 #footer_social_link .facebook,
 #footer_social_link .insta {
-    color: var(--gm-gold-soft) !important;
+    color: var(--gm-navy) !important;
     transition: color .25s ease;
 }
 
 #footer_social_link .facebook:hover,
 #footer_social_link .insta:hover {
-    color: var(--gm-ivory) !important;
+    color: var(--gm-gold) !important;
 }
 
 /* Footer logo (center it) */
@@ -2162,7 +2181,7 @@ a[href=""]:hover {
 #footer_logo .logo_retina {
     max-width: 200px !important;
     height: auto !important;
-    filter: brightness(0) invert(1);
+    filter: none;
 }
 
 /* Footer social links — larger, clearer */
@@ -2195,8 +2214,8 @@ a[href=""]:hover {
     position: relative;
     z-index: 2;
     transition: transform .25s ease, background .25s ease;
-    color: var(--gm-tiffany) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    color: var(--gm-navy) !important;
+    box-shadow: 0 2px 8px rgba(10, 31, 61, .1);
     overflow: visible;
     pointer-events: auto !important;
     cursor: pointer !important;
@@ -2235,18 +2254,18 @@ a[href=""]:hover {
     font-weight: 400;
     text-indent: 0;
     font-family: "Arial", sans-serif;
-    color: var(--gm-tiffany-deep);
+    color: var(--gm-navy);
     pointer-events: none !important;
 }
 
 #footer_social_link li.facebook a::after {
     content: "";
-    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233F8A9D'><path d='M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A23.65 23.65 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.361H7.332v3.209h2.747v8.196h3.318Z'/></svg>");
+    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230A1F3D'><path d='M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A23.65 23.65 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.361H7.332v3.209h2.747v8.196h3.318Z'/></svg>");
 }
 
 #footer_social_link li.insta a::after {
     content: "";
-    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233F8A9D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5' ry='5'/><path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'/><line x1='17.5' y1='6.5' x2='17.51' y2='6.5'/></svg>");
+    background: no-repeat center/22px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A1F3D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5' ry='5'/><path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'/><line x1='17.5' y1='6.5' x2='17.51' y2='6.5'/></svg>");
 }
 
 #footer_social_link li a:hover {
@@ -2263,7 +2282,7 @@ a[href=""]:hover {
     padding: 22px 0 18px !important;
     margin: 20px 0 0 !important;
     background: transparent !important;
-    border-top: 1px solid rgba(255, 255, 255, .25);
+    border-top: 1px solid rgba(10, 31, 61, .1);
 }
 
 #footer_bottom_menu ul,
@@ -2288,7 +2307,7 @@ a[href=""]:hover {
 #footer_bottom_menu li a {
     font-family: var(--gm-sans) !important;
     font-size: 12px !important;
-    color: #fff !important;
+    color: var(--gm-navy) !important;
     letter-spacing: .14em !important;
     padding: 6px 0 !important;
     background: transparent !important;
@@ -2307,7 +2326,7 @@ a[href=""]:hover {
 #copyright {
     display: block !important;
     background: transparent !important;
-    color: rgba(255, 255, 255, .75) !important;
+    color: var(--gm-mute) !important;
     font-family: var(--gm-sans) !important;
     font-size: 11px !important;
     font-weight: 400 !important;
@@ -2316,7 +2335,7 @@ a[href=""]:hover {
     padding: 18px 20px !important;
     margin: 14px 0 0 !important;
     border: none !important;
-    border-top: 1px solid rgba(255, 255, 255, .2) !important;
+    border-top: 1px solid rgba(10, 31, 61, .1) !important;
     text-align: center !important;
     line-height: 1.6 !important;
     width: 100% !important;
@@ -2389,8 +2408,8 @@ a[href=""]:hover {
 }
 
 #return_top a:hover::after {
-    border-top-color: var(--gm-tiffany-deep);
-    border-right-color: var(--gm-tiffany-deep);
+    border-top-color: var(--gm-navy);
+    border-right-color: var(--gm-navy);
 }
 
 /* =========================================================================
