@@ -1019,11 +1019,12 @@ body.search #post_list {
 
 /* Clinic top icon — constrained aspect ratio */
 #post_list .article .image {
-    overflow: hidden;
+    overflow: hidden !important;
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
     background: var(--gm-ivory-2);
+    max-width: 100% !important;
 }
 
 #post_list .article .image img {
@@ -1031,7 +1032,10 @@ body.search #post_list {
     inset: 0;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     transition: transform .7s cubic-bezier(.2, .8, .2, 1);
 }
 
@@ -1563,16 +1567,21 @@ h2#post_title::before {
     padding: 0 !important;
     line-height: 0;
     overflow: hidden;
-    max-height: 480px;
+    max-height: 400px;
     background: var(--gm-ivory-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #post_image img {
-    width: 100% !important;
+    width: auto !important;
     height: auto !important;
     display: block;
-    object-fit: cover;
-    max-height: 480px;
+    max-width: 100% !important;
+    max-height: 400px !important;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 .single .entry-title,

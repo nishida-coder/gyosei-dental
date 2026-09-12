@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GDENTAL_CHILD_VERSION', '1.3.1');
+define('GDENTAL_CHILD_VERSION', '1.3.2');
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
