@@ -1562,12 +1562,17 @@ h2#post_title::before {
     margin: 0 !important;
     padding: 0 !important;
     line-height: 0;
+    overflow: hidden;
+    max-height: 480px;
+    background: var(--gm-ivory-2);
 }
 
 #post_image img {
     width: 100% !important;
     height: auto !important;
     display: block;
+    object-fit: cover;
+    max-height: 480px;
 }
 
 .single .entry-title,
