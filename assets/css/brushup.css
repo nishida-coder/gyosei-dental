@@ -1563,15 +1563,14 @@ h2#post_title::before {
     padding: 0 !important;
     line-height: 0;
     overflow: hidden;
-    max-width: 720px;
+    max-width: 520px;
+    border-radius: 4px;
 }
 
 #post_image img {
     width: 100% !important;
     height: auto !important;
     display: block;
-    max-height: 480px;
-    object-fit: cover;
 }
 
 .single .entry-title,
